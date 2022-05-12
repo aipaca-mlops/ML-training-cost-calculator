@@ -21,7 +21,7 @@ pip install -r requirements.txt  # install
 </details>  
 
 <details open>  
-<summary>Inference Dense Model</summary>  
+<summary>Generate Dense Model</summary>  
 
 Generate training time data for feed forward network.
 
@@ -32,7 +32,7 @@ put python steps here
 
 
 <details open>  
-<summary>Inference CNN Model</summary>  
+<summary>Generate CNN Model</summary>  
 
 Generate training time data for convolutional network.
 
@@ -43,9 +43,43 @@ put python steps here
 
 
 <details open>  
-<summary>Inference RNN Model</summary>  
+<summary>Generate RNN Model</summary>  
 
 Generate training time data for recurrent network.
+
+```python  
+put python steps here
+```  
+</details>  
+
+## <div align="center">Training Time Prediction Quick Start Examples</div>  
+
+<details open>  
+<summary>Predict Dense Model Training Time</summary>  
+
+Make a prediction for a feed forward network training time.
+
+```python  
+put python steps here
+```  
+</details>  
+
+
+<details open>  
+<summary>Predict CNN Model Training Time</summary>  
+
+Make a prediction for a convolutional network training time.
+
+```python  
+put python steps here
+```  
+</details>  
+
+
+<details open>  
+<summary>Predict RNN Model Training Time</summary>  
+
+Make a prediction for a recurrent network training time.
 
 ```python  
 put python steps here
