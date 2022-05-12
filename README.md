@@ -16,4 +16,7 @@ Clone repo and install [requirements.txt](https://github.com/aipaca-mlops/ML-tra
 [**Tensorflow>=2.3**](https://www.tensorflow.org/versions).  
 
 ```bash  
-git clone https://github.com/aipaca-mlops/ML-training-cost-predictor.git  # clone cd ML-training-cost-calculator pip install -r requirements.txt  # install```  
+git clone https://github.com/aipaca-mlops/ML-training-cost-predictor.git  # clone 
+cd ML-training-cost-calculator 
+pip install -r requirements.txt  # install
+```  
