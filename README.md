@@ -101,7 +101,39 @@ df, scaler = mtd.convert_config_data(
 |  3 |       0.562124 |       0.487462 |       0.626627 |      0.275275  |          0.631 |          0.817 |          0.875 |      0.383768  |       0.225225 |        0.842528 |           0.509 |        0.477477 |        0.131394 |           0.303 |           0.066 |        0.641283 |        0.845691 |           0.633 |        0.295295 |       0.415246  |        0.8999   |        0.655656 |        0.351351 |           0.566 |        0.489468 |        0.492492 |        0.947948 |       0.0802407 |           0.253 |        0.140281 |        0.458586 |           0.598 |        0.587525 |        0.274274 |           0.085 |        0.96493  |        0.172691 |        0.348394 |        0.805416 |        0.745746 |        0.954774 |      0.907723   |               0 |               0 |               0 |               0 |               0 |               0 |               0 |               0 |                0.25  |             0.555556 |             0.111111 |             0.555556 |             0.333333 |             0.555556 |             0.111111 |             1        |             0.222222 |              0.222222 |              0.888889 |              0.444444 |              1        |              0.111111 |              0.444444 |              0.222222 |              0.888889 |              0.777778 |              0.777778 |              0.333333 |              0.888889 |              0.222222 |              0.777778 |              1        |              0.555556 |              0.888889 |              0.666667 |              0.555556 |              0.666667 |              0.777778 |              0.888889 |              0.333333 |              0.888889 |              1        |              0.333333 |              0.222222 |              0.888889 |              0.111111 |              0.777778 |              0.888889 |              1        |              0.111111 |                     0 |                     0 |                     0 |                     0 |                     0 |                     0 |                     0 |                     0 |    0.0551181 |   0.311623  |                    0 |                   1 |                0 |                  0 |                0 |                 0 |                   0 |               0 |                               0 |          1 |           0 |          0 |           0 |              0 |      8.15439 |      8.47578 |     1590.8   |
 |  4 |       0.893788 |       0.11334  |       0.148148 |      0.947948  |          0.858 |          0.797 |          0.268 |      0.833667  |       0.575576 |        0.721163 |           0.607 |        0.001001 |        0.834504 |           0.133 |           0.064 |        0.169339 |        0.655311 |           0.206 |        0.913914 |       0.0832497 |        0.36036  |        0.51952  |        0.331331 |           0.279 |        0.2668   |        0.4004   |        0.301301 |       0.728185  |           0.4   |        0.891784 |        0.240404 |           0.474 |        0.349095 |        0.91992  |           0.898 |        0.163327 |        0        |        0        |        0        |        0        |        0        |      0          |               0 |               0 |               0 |               0 |               0 |               0 |               0 |               0 |                0.5   |             0.333333 |             0.333333 |             1        |             0.111111 |             0.111111 |             1        |             0.222222 |             1        |              1        |              0.777778 |              0.888889 |              0.666667 |              0.888889 |              0.222222 |              0.777778 |              0.666667 |              0.333333 |              0.111111 |              0.444444 |              0.555556 |              0.444444 |              0.222222 |              0.777778 |              0.888889 |              0.777778 |              0.111111 |              1        |              1        |              0.777778 |              0.777778 |              0.444444 |              0.777778 |              0.555556 |              0.222222 |              0.444444 |              0        |              0        |              0        |              0        |              0        |              0        |                     0 |                     0 |                     0 |                     0 |                     0 |                     0 |                     0 |                     0 |    0.0551181 |   0.0751503 |                    0 |                   1 |                0 |                  0 |                0 |                 0 |                   0 |               0 |                               0 |          0 |           1 |          0 |           0 |              0 |      6.92463 |      7.37071 |     1709.9   |
 ```
-Build a regression model with generated data.
+
+</details>  
+
+
+<details open>  
+<summary>Generate CNN Model</summary>  
+
+Generate training time data for convolutional network.
+
+```python  
+put python steps here
+```  
+</details>  
+
+
+<details open>  
+<summary>Generate RNN Model</summary>  
+
+Generate training time data for recurrent network.
+
+```python  
+put python steps here
+```  
+</details>  
+
+## <div align="center">Training Time Prediction Quick Start Examples</div>  
+
+<details open>  
+<summary>Predict Dense Model Training Time</summary>  
+
+Make a prediction for a feed forward network training time. 
+
+Build a regression model with generated dataframe data from **Dense Model Data Generation**.
 ```python  
 import numpy as np
 
@@ -224,40 +256,6 @@ plt.scatter(setup_y_pred, y_setup_test)
 plt.show()
 ```  
 ![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimePredVSTest.png)
-</details>  
-
-
-<details open>  
-<summary>Generate CNN Model</summary>  
-
-Generate training time data for convolutional network.
-
-```python  
-put python steps here
-```  
-</details>  
-
-
-<details open>  
-<summary>Generate RNN Model</summary>  
-
-Generate training time data for recurrent network.
-
-```python  
-put python steps here
-```  
-</details>  
-
-## <div align="center">Training Time Prediction Quick Start Examples</div>  
-
-<details open>  
-<summary>Predict Dense Model Training Time</summary>  
-
-Make a prediction for a feed forward network training time.
-
-```python  
-put python steps here
-```  
 </details>  
 
 
