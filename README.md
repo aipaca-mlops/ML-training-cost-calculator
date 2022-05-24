@@ -147,12 +147,12 @@ batch_model.add(Dense(1, kernel_initializer='normal'))
 batch_model.compile(loss='mean_squared_error', optimizer='adam')  
   
 history_batch = batch_model.fit(  
-    x_train,  
-  y_batch_train,  
-  batch_size=16,  
-  epochs=50,  
-  validation_data=(x_test, y_batch_test),  
-  verbose=True  
+	x_train,  
+	y_batch_train,  
+	batch_size=16,  
+	epochs=50,  
+	validation_data=(x_test, y_batch_test),  
+	verbose=True  
 )
 ```
 Plot training history.
@@ -166,6 +166,9 @@ plt.xlabel('epoch')
 plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```  
+![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseRegressionHistory.png)
+
+
 Plot prediction vs test.
 ```python  
 # plot predictions vs true for batch model
@@ -174,6 +177,51 @@ batch_y_pred = batch_y_pred.reshape(batch_y_pred.shape[0],  )
 plt.scatter(batch_y_pred, y_batch_test)
 plt.show()
 ```  
+![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DensePredVSTest.png)
+
+Now we train regression model for setup time model.
+```python  
+# build a dense model for setup time prediction  
+setup_model = Sequential()  
+setup_model.add(  
+    Dense(200, input_dim=x_train.shape[1], kernel_initializer='normal', activation='relu')  
+)  
+setup_model.add(Dense(200, kernel_initializer='normal', activation='relu'))  
+setup_model.add(Dense(200, kernel_initializer='normal', activation='relu'))  
+setup_model.add(Dense(200, kernel_initializer='normal', activation='relu'))  
+setup_model.add(Dense(1, kernel_initializer='normal'))  
+# Compile model  
+setup_model.compile(loss='mean_squared_error', optimizer='adam')  
+history_setup = setup_model.fit(  
+	x_train,  
+	y_setup_train,  
+	batch_size=16,  
+	epochs=45,  
+	validation_data=(x_test, y_setup_test),  
+	verbose=True  
+)
+```  
+Plot training history.
+```python  
+# summarize history for loss
+plt.plot(history_setup.history['loss'])
+plt.plot(history_setup.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train',  'test'], loc='upper left')
+plt.show()
+```  
+![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimeHistory.png)
+Plot prediction vs test.
+```python  
+# plot predictions vs true for setup time model
+setup_y_pred = setup_model.predict(x_test)
+setup_y_pred = setup_y_pred.reshape(setup_y_pred.shape[0],  )
+plt.scatter(setup_y_pred, y_setup_test)
+plt.show()
+```  
+![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimePredVSTest.png)
 </details>  
 
 
