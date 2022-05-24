@@ -28,7 +28,7 @@ Generate model configs for feed forward network.
 ```python  
 import random  
 import matplotlib.pyplot as plt  
-from model_level_utils import gen_nn
+from model_level_utils import gen_nn, model_train_data
   
 # generate model configurations as data points  
 data_points = 1000  
