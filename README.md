@@ -155,6 +155,7 @@ history_batch = batch_model.fit(
 	verbose=True  
 )
 ```
+
 Plot training history.
 ```python  
 # summarize history for loss
@@ -167,7 +168,6 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```  
 ![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseRegressionHistory.png)
-
 
 Plot prediction vs test.
 ```python  
@@ -201,6 +201,7 @@ history_setup = setup_model.fit(
 	verbose=True  
 )
 ```  
+
 Plot training history.
 ```python  
 # summarize history for loss
@@ -213,6 +214,7 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```  
 ![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimeHistory.png)
+
 Plot prediction vs test.
 ```python  
 # plot predictions vs true for setup time model
