@@ -84,7 +84,7 @@ Check out what is inside model_data.
 				'input_dim': 196}
 				}
 ```
-Now we can convert generated data into pandas dataframe
+Now we can convert generated data into pandas dataframe.
 ```python  
 # convert raw data as dataframe and scaler  
 df, scaler = mtd.convert_config_data(  
@@ -108,11 +108,131 @@ df, scaler = mtd.convert_config_data(
 <details open>  
 <summary>Generate CNN Model</summary>  
 
-Generate training time data for convolutional network.
+Generate model configs for convolutional network.
 
 ```python  
-put python steps here
+from model_trainingtime_prediction.model_level_utils_cnn import gen_cnn2d, cnn2d_model_train_data
+import nltk
+from tqdm import tqdm
+
+gen = gen_cnn2d(  
+		input_shape_lower=20,  
+		input_shape_upper=101,  
+		conv_layer_num_lower=1,  
+		conv_layer_num_upper=51,  
+		filter_lower=1,  
+		filter_upper=101,  
+		dense_layer_num_lower=1,  
+		dense_layer_num_upper=6,  
+		dense_size_lower=1,  
+		dense_size_upper=1001,  
+		max_pooling_prob=.5,  
+		input_channels=None,  
+		paddings=None,  
+		activations=None,  
+		optimizers=None,  
+		losses=None  
+		)  
+model_configs = gen.generate_model_configs(num_model_data=data_points, progress=True)
 ```  
+Check out what is inside model_configs.
+
+```python  
+>>>print(type(model_configs))
+<class 'list'>
+
+>>>print(model_configs[0])
+[[{'filters': 83, 'padding': 'valid', 'activation': 'softmax', 'kernel_size': (53, 53), 'strides': (1, 1)}, 
+{'filters': 51, 'padding': 'same', 'activation': 'softsign', 'kernel_size': (2, 2), 'strides': (1, 1)}, 
+{'padding': 'same', 'pool_size': (2, 2), 'strides': (1, 1)}, 
+{'filters': 17, 'padding': 'same', 'activation': 'selu', 'kernel_size': (3, 3), 'strides': (1, 1)}, 
+{'padding': 'same', 'pool_size': (3, 3), 'strides': (1, 1)}, 
+{'filters': 32, 'padding': 'valid', 'activation': 'tanh', 'kernel_size': (2, 2), 'strides': (2, 2)}, 
+{'padding': 'valid', 'pool_size': (1, 1), 'strides': (1, 1)}, 
+{}, 
+{'units': 702, 'activation': 'sigmoid'}, 
+{'units': 471, 'activation': 'elu'}, 
+{'units': 906, 'activation': 'elu'}, 
+{'Compile': {'optimizer': 'rmsprop', 'loss': 'categorical_crossentropy'}, 'Fit': {}}], 
+['Conv2D', 'Conv2D', 'MaxPooling2D', 'Conv2D', 'MaxPooling2D', 'Conv2D', 'MaxPooling2D', 'Flatten', 'Dense', 'Dense', 'Dense'], 
+(56, 56, 3)]
+
+```
+Next we can use generated model configurations to get training times. This might take a while depending on your GPU.
+```python  
+# train generated model configurations to get training time  
+mtd = cnn2d_model_train_data(
+	model_configs, batch_sizes=None, epochs=None, truncate_from=None, trials=None
+)
+
+model_data = mtd.get_train_data(progress=True)
+```
+Check out what is inside model_data.
+```python  
+>>>print(type(model_data))
+<class 'list'>
+
+>>>print(model_data[0])
+[[{'filters': 83, 'padding': 'valid', 'activation': 'softmax', 'kernel_size': (53, 53), 'strides': (1, 1)}, 
+{'filters': 51, 'padding': 'same', 'activation': 'softsign', 'kernel_size': (2, 2), 'strides': (1, 1)}, 
+{'padding': 'same', 'pool_size': (2, 2), 'strides': (1, 1)}, 
+{'filters': 17, 'padding': 'same', 'activation': 'selu', 'kernel_size': (3, 3), 'strides': (1, 1)}, 
+{'padding': 'same', 'pool_size': (3, 3), 'strides': (1, 1)}, 
+{'filters': 32, 'padding': 'valid', 'activation': 'tanh', 'kernel_size': (2, 2), 'strides': (2, 2)}, 
+{'padding': 'valid', 'pool_size': (1, 1), 'strides': (1, 1)}, 
+{}, 
+{'units': 702, 'activation': 'sigmoid'}, 
+{'units': 471, 'activation': 'elu'}, 
+{'units': 906, 'activation': 'elu'}, 
+{'Compile': {'optimizer': 'rmsprop', 'loss': 'categorical_crossentropy'}, 'Fit': {}}], 
+['Conv2D', 'Conv2D', 'MaxPooling2D', 'Conv2D', 'MaxPooling2D', 'Conv2D', 'MaxPooling2D', 'Flatten', 'Dense', 'Dense', 'Dense'], 
+(56, 56, 3), 
+{'batch_size': 4, 
+'batch_time': 3.8396120071411133, 
+'epoch_time': 4.180788993835449, 
+'setup_time': 930.9759140014648, 
+'input_dim': (56, 56, 3)}]
+
+```
+Now we can convert generated data into pandas dataframes.
+```python  
+# 15 from conv_layer_num_upper * 2 + dense_layer_num_upper
+# * 2 because the maxpooling layer might be there
+
+model_data_dfs, time_df, scaler = mtd.convert_config_data(
+	model_data, max_layer_num=15, num_fill_na=0, name_fill_na=None, min_max_scaler=True
+)
+```
+```python  
+>>>display(model_data_dfs[0])
+|    |   layer_size |   kernel_size |   strides |   batch_size |   input_shape |   channels |   layer_type_Conv2D |   layer_type_Dense |   layer_type_MaxPooling2D |   padding_same |   padding_valid |   activation_elu |   activation_exponential |   activation_relu |   activation_selu |   activation_sigmoid |   activation_softmax |   activation_softplus |   activation_softsign |   activation_tanh |   optimizer_adadelta |   optimizer_adagrad |   optimizer_adam |   optimizer_adamax |   optimizer_ftrl |   optimizer_nadam |   optimizer_rmsprop |   optimizer_sgd |   loss_categorical_crossentropy |   loss_mae |   loss_mape |   loss_mse |   loss_msle |   loss_poisson |
+|---:|-------------:|--------------:|----------:|-------------:|--------------:|-----------:|--------------------:|-------------------:|--------------------------:|---------------:|----------------:|-----------------:|-------------------------:|------------------:|------------------:|---------------------:|---------------------:|----------------------:|----------------------:|------------------:|---------------------:|--------------------:|-----------------:|-------------------:|-----------------:|------------------:|--------------------:|----------------:|--------------------------------:|-----------:|------------:|-----------:|------------:|---------------:|
+|  0 |        0.083 |     0.557895  |       0.5 |     0.015625 |      0.565657 |          1 |                   1 |                  0 |                         0 |              0 |               1 |                0 |                        0 |                 0 |                 0 |                    0 |                    1 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   1 |               0 |                               1 |          0 |           0 |          0 |           0 |              0 |
+|  1 |        0.051 |     0.0210526 |       0.5 |     0.015625 |      0.565657 |          1 |                   1 |                  0 |                         0 |              1 |               0 |                0 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     1 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   1 |               0 |                               1 |          0 |           0 |          0 |           0 |              0 |
+|  2 |        0     |     0.0210526 |       0.5 |     0.015625 |      0.565657 |          1 |                   0 |                  0 |                         1 |              1 |               0 |                0 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   1 |               0 |                               1 |          0 |           0 |          0 |           0 |              0 |
+|  3 |        0.017 |     0.0315789 |       0.5 |     0.015625 |      0.565657 |          1 |                   1 |                  0 |                         0 |              1 |               0 |                0 |                        0 |                 0 |                 1 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   1 |               0 |                               1 |          0 |           0 |          0 |           0 |              0 |
+|  4 |        0     |     0.0315789 |       0.5 |     0.015625 |      0.565657 |          1 |                   0 |                  0 |                         1 |              1 |               0 |                0 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   1 |               0 |                               1 |          0 |           0 |          0 |           0 |              0 |
+|  5 |        0.032 |     0.0210526 |       1   |     0.015625 |      0.565657 |          1 |                   1 |                  0 |                         0 |              0 |               1 |                0 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 1 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   1 |               0 |                               1 |          0 |           0 |          0 |           0 |              0 |
+|  6 |        0     |     0.0105263 |       0.5 |     0.015625 |      0.565657 |          1 |                   0 |                  0 |                         1 |              0 |               1 |                0 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   1 |               0 |                               1 |          0 |           0 |          0 |           0 |              0 |
+|  7 |        0.702 |     0         |       0   |     0.015625 |      0.565657 |          1 |                   0 |                  1 |                         0 |              0 |               0 |                0 |                        0 |                 0 |                 0 |                    1 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   1 |               0 |                               1 |          0 |           0 |          0 |           0 |              0 |
+|  8 |        0.471 |     0         |       0   |     0.015625 |      0.565657 |          1 |                   0 |                  1 |                         0 |              0 |               0 |                1 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   1 |               0 |                               1 |          0 |           0 |          0 |           0 |              0 |
+|  9 |        0.906 |     0         |       0   |     0.015625 |      0.565657 |          1 |                   0 |                  1 |                         0 |              0 |               0 |                1 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   1 |               0 |                               1 |          0 |           0 |          0 |           0 |              0 |
+| 10 |        0     |     0         |       0   |     0        |      0        |          0 |                   0 |                  0 |                         0 |              0 |               0 |                0 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   0 |               0 |                               0 |          0 |           0 |          0 |           0 |              0 |
+| 11 |        0     |     0         |       0   |     0        |      0        |          0 |                   0 |                  0 |                         0 |              0 |               0 |                0 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   0 |               0 |                               0 |          0 |           0 |          0 |           0 |              0 |
+| 12 |        0     |     0         |       0   |     0        |      0        |          0 |                   0 |                  0 |                         0 |              0 |               0 |                0 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   0 |               0 |                               0 |          0 |           0 |          0 |           0 |              0 |
+| 13 |        0     |     0         |       0   |     0        |      0        |          0 |                   0 |                  0 |                         0 |              0 |               0 |                0 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   0 |               0 |                               0 |          0 |           0 |          0 |           0 |              0 |
+| 14 |        0     |     0         |       0   |     0        |      0        |          0 |                   0 |                  0 |                         0 |              0 |               0 |                0 |                        0 |                 0 |                 0 |                    0 |                    0 |                     0 |                     0 |                 0 |                    0 |                   0 |                0 |                  0 |                0 |                 0 |                   0 |               0 |                               0 |          0 |           0 |          0 |           0 |              0 |
+```
+```python  
+>>>display(time_df.head())
+|    |   batch_time |   epoch_time |   setup_time |
+|---:|-------------:|-------------:|-------------:|
+|  0 |      3.83961 |      4.18079 |      930.976 |
+|  1 |     13.6241  |     13.9616  |      405.777 |
+|  2 |    152.279   |    152.747   |    10592.4   |
+|  3 |    364.004   |    364.5     |    26533.8   |
+|  4 |     30.2401  |     30.6295  |     1840.11  |
+```
 </details>  
 
 
@@ -264,9 +384,52 @@ plt.show()
 
 Make a prediction for a convolutional network training time.
 
+Build a regression model with generated dataframe data from  **CNN Model Data Generation**.
+
+We first flatten dataframes into training data.
+
 ```python  
-put python steps here
-```  
+import numpy as np
+
+x = np.array([
+	data_df.to_numpy().reshape(
+	model_data_dfs[0].shape[0] * model_data_dfs[0].shape[1],
+	)  for data_df in model_data_dfs
+])
+
+y = np.array(time_df.batch_time.tolist())
+``` 
+Build and train regression model. 
+```python
+from sklearn.model_selection import train_test_split
+from keras.models import Sequential
+from keras.layers import Dense, BatchNormalization
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+batch_model = Sequential()
+batch_model.add(
+Dense(2000, input_dim=x_train.shape[1], kernel_initializer='normal', activation='relu')
+)
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(2000, kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(2000, kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(2000, kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(2000, kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(2000, kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(1, kernel_initializer='normal'))
+# Compile model
+batch_model.compile(loss='mean_squared_error', optimizer='adam')
+
+history_batch = batch_model.fit(
+	x_train, y_train, batch_size=16, epochs=20, validation_data=(x_test, y_test), verbose=True
+	)
+```
 </details>  
 
 
