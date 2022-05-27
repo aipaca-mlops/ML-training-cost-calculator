@@ -249,7 +249,7 @@ put python steps here
 ## <div align="center">Training Time Prediction Quick Start Examples</div>  
 
 <details open>  
-<summary>Predict Dense Model Training Time</summary>  
+<summary>Predict Dense Model Training Time Using Model Level Structure</summary>  
 
 Make a prediction for a feed forward network training time. 
 
@@ -378,9 +378,92 @@ plt.show()
 ![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimePredVSTest.png)
 </details>  
 
+<details open>  
+<summary>Predict Dense Model Training Time Using Unit 
+Counts</summary>  
+
+Now we do not convert model structure into features, instead, we simply use the sum of all units of all dense layers as the model feature. It turns out works great and gives much more flexibility.
+
+```python
+from model_level_utils import convert_dense_data
+
+cdd = convert_dense_data()
+# model_data from data generation step
+dense_data, times_data, Scaler = cdd.convert_model_config(model_data, data_type='Units', min_max_scaler=True)
+```
+
+Take of look of dense_data and times_data
+
+```python
+>>>print(dense_data)
+[[0.20932152 0.05511811 0. ... 0. 0. 0. ] 
+ [0.90319687 0.11811024 0. ... 0. 1. 0. ] 
+ [0.68745291 0.02362205 0. ... 0. 0. 0. ] 
+ ... 
+ [0.54267877 0.05511811 0. ... 0. 0. 1. ] 
+ [0.09124179 0. 0. ... 0. 0. 0. ] 
+ [0.46047863 1. 0. ... 1. 0. 0. ]]
+ 
+>>>print(times_data)
+[ 4.50062752 15.86818695 9.13286209 
+  ...
+  4.87327576 2.39396095 18.14508438]
+```
+
+Train a regression model with dense_data and times_data
+
+```python
+from sklearn.model_selection import train_test_split
+from keras.models import Sequential
+from keras.layers import Dense, BatchNormalization
+
+x_train, x_test, y_train, y_test = train_test_split(dense_data, times_data, test_size=0.2, random_state=42)
+
+batch_model = Sequential()
+batch_model.add(Dense(2000, input_dim=x_train.shape[1], kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(2000, kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(2000, kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(2000, kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(2000, kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(2000, kernel_initializer='normal', activation='relu'))
+batch_model.add(BatchNormalization())
+batch_model.add(Dense(1, kernel_initializer='normal'))
+
+# Compile model
+batch_model.compile(loss='mean_squared_error', optimizer='adam')
+
+history_batch = batch_model.fit(x_train, y_train, batch_size=16, epochs=20, validation_data=(x_test, y_test), verbose=True)
+```
+```python
+# summarize history for loss
+plt.plot(history_batch.history['loss'])
+plt.plot(history_batch.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train',  'test'], loc='upper left')
+plt.show()
+```
+![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimePredVSTest.png)
+
+```python
+batch_y_pred = batch_model.predict(x_test)
+batch_y_pred = batch_y_pred.reshape(batch_y_pred.shape[0],  )
+plt.scatter(batch_y_pred, y_test)
+plt.show()
+```
+![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimePredVSTest.png)
+</details>  
+
+
 
 <details open>  
-<summary>Predict CNN Model Training Time</summary>  
+<summary>Predict CNN Model Training Time Using Model Level Structure</summary>  
 
 Make a prediction for a convolutional network training time.
 
