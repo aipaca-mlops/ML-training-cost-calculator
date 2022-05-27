@@ -6,8 +6,25 @@ Currently, this repository is still under developing.
 
 ## <div align="center">Documentation</div>  
 See the [Research Docs ](https://docs.google.com/document/d/1FLgQ58umOK8FmGb_iNfiACIAdGIlFEFSvfOBEQXfsyY/edit) for full documentation on motivation, related researches.
+
+<details open>  
+<summary>Install</summary>  
+  
+Clone repo and install [requirements.txt](https://github.com/aipaca-mlops/ML-training-cost-predictor/blob/master/requirements.txt) in a  [**Python>=3.7.0**](https://www.python.org/) environment, including  [**Tensorflow>=2.3**](https://www.tensorflow.org/versions), including  [**Keras>=2.8.0**](https://github.com/keras-team/keras/releases).  
+
+```bash  
+git clone https://github.com/aipaca-mlops/ML-training-cost-predictor.git  # clone 
+cd ML-training-cost-calculator 
+pip install -r requirements.txt  # install
+```  
+</details>  
+
+
+
 ## <div align="center">GPU Environment Check </div>  
 <details open>  
+<summary>GPU Features</summary> 
+
 Model training times depending on three factors, environment, model structure and data. Environment Check should be the first check before generating any data point. 
 
 Environment configuration should be features for training time prediction for your own experiment if you have multiple environments.
@@ -48,17 +65,6 @@ gpufeature = gpu_features(
 
 
 ## <div align="center">Data Generation Quick Start Examples</div>  
-<details open>  
-<summary>Install</summary>  
-  
-Clone repo and install [requirements.txt](https://github.com/aipaca-mlops/ML-training-cost-predictor/blob/master/requirements.txt) in a  [**Python>=3.7.0**](https://www.python.org/) environment, including  [**Tensorflow>=2.3**](https://www.tensorflow.org/versions), including  [**Keras>=2.8.0**](https://github.com/keras-team/keras/releases).  
-
-```bash  
-git clone https://github.com/aipaca-mlops/ML-training-cost-predictor.git  # clone 
-cd ML-training-cost-calculator 
-pip install -r requirements.txt  # install
-```  
-</details>  
 
 <details open>  
 <summary>Generate Dense Model</summary>  
