@@ -317,7 +317,7 @@ ax = sns.catplot(x="optimizer", y="batch_time",
              height=10, aspect=1)
 plt.show()
 ```
-![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseRegressionHistory.png)
+![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/VGG16data.png)
 
 It is interesting to observe that loss functions play less important role in terms of training time spending. Whereas batch sizes and optimizers have much apparent impact as we expected. 
 </details>  
