@@ -449,7 +449,7 @@ plt.xlabel('epoch')
 plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
-![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimePredVSTest.png)
+![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/HistoryDenseUnitSum.png)
 
 ```python
 batch_y_pred = batch_model.predict(x_test)
@@ -457,7 +457,7 @@ batch_y_pred = batch_y_pred.reshape(batch_y_pred.shape[0],  )
 plt.scatter(batch_y_pred, y_test)
 plt.show()
 ```
-![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimePredVSTest.png)
+![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/PredDenseUnitSum.png)
 </details>  
 
 
