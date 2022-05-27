@@ -6,6 +6,46 @@ Currently, this repository is still under developing.
 
 ## <div align="center">Documentation</div>  
 See the [Research Docs ](https://docs.google.com/document/d/1FLgQ58umOK8FmGb_iNfiACIAdGIlFEFSvfOBEQXfsyY/edit) for full documentation on motivation, related researches.
+## <div align="center">GPU Environment Check </div>  
+<details open>  
+Model training times depending on three factors, environment, model structure and data. Environment Check should be the first check before generating any data point. 
+
+Environment configuration should be features for training time prediction for your own experiment if you have multiple environments.
+
+Reference [**here**](https://nvidia.custhelp.com/app/answers/detail/a_id/3751/~/useful-nvidia-smi-queries) for all feature names.
+```python
+from env_detect import gpu_features
+# need to run with GPU  
+
+# only show default features  
+gpufeature = gpu_features()  
+
+>>>print(gpufeature.get_features())
+{'timestamp': '2022/05/27 17:39:01.851', 'driver_version': '460.73.01', 'count': '1', 'name': 'Tesla T4', 'pcie.link.width.max': '16', 'vbios_version': '90.04.96.00.01', 'memory.total [MiB]': '15109 MiB', 'temperature.gpu': '46'}
+```
+
+```python
+# with additional features  
+gpufeature = gpu_features(  
+    features=['power.management', 'power.limit'], with_dafault_features=True  
+)  
+
+>>>print(gpufeature.get_features())
+{'timestamp': '2022/05/27 17:39:01.896', 'driver_version': '460.73.01', 'count': '1', 'name': 'Tesla T4', 'pcie.link.width.max': '16', 'vbios_version': '90.04.96.00.01', 'memory.total [MiB]': '15109 MiB', 'temperature.gpu': '46', 'power.management': 'Enabled', 'power.limit [W]': '70.00 W'}
+```
+
+```python
+# only use wanted features  
+gpufeature = gpu_features(  
+    features=['power.management', 'power.limit'], with_dafault_features=False  
+)  
+
+>>>print(gpufeature.get_features())
+{'power.management': 'Enabled', 'power.limit [W]': '70.00 W'}
+```
+
+</details>  
+
 
 ## <div align="center">Data Generation Quick Start Examples</div>  
 <details open>  
@@ -234,6 +274,54 @@ model_data_dfs, time_df, scaler = mtd.convert_config_data(
 |  4 |     30.2401  |     30.6295  |     1840.11  |
 ```
 </details>  
+
+<details open>  
+<summary>Generate Classic CNN Model Data</summary>  
+
+People normally use pre-defined classic CNN structures instead of creating their own. We can also generate data for these specific models instead of random generated CNN models. This will help us increase the prediction accuracy.
+
+For valid pre-defined model names check [**here**](https://keras.io/api/applications/).
+
+For each pre-trained models, the input shape cannot be changed if we want to fine-tune on pre-trained weights.
+
+```python
+from model_level_utils_cnn import ClassicModelTrainData
+
+cmtd = ClassicModelTrainData(
+		batch_sizes=[2, 4],
+		optimizers=["sgd", "rmsprop", "adam"],
+		losses=["mse", "msle", "poisson", "categorical_crossentropy"])
+
+model_data = cmtd.get_train_data('VGG16', output_size=1000, progress=True)
+```  
+```python
+batch_sizes = [i['batch_size'] for i in model_data]
+optimizers = [i['optimizer'] for i in model_data]
+losses = [i['loss'] for i in model_data]
+times = [i['batch_time'] for i in model_data]
+```
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# set plot style: grey grid in the background:
+sns.set(style="darkgrid")
+
+data = pd.DataFrame(list(zip(batch_sizes, optimizers, losses, times)), columns = ['batch_size', 'optimizer', 'loss', 'batch_time'])
+
+sns.set(font_scale = 2)
+ax = sns.catplot(x="optimizer", y="batch_time",
+             hue="loss", col="batch_size",
+             data=data, kind="bar",
+             height=10, aspect=1)
+plt.show()
+```
+![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseRegressionHistory.png)
+
+It is interesting to observe that loss functions play less important role in terms of training time spending. Whereas batch sizes and optimizers have much apparent impact as we expected. 
+</details>  
+
 
 
 <details open>  
@@ -515,6 +603,43 @@ history_batch = batch_model.fit(
 ```
 </details>  
 
+<details open>  
+<summary>Predict CNN Model Training Time Using FLOPs</summary>  
+
+We first get FLOPs features.
+```python  
+# Convert raw data into data points
+
+# model_data from data generation step for CNN
+scaler_conv_data, times_data_conv2d, scaler = ccd.convert_model_config(model_data, layer_num_upper=105, data_type='FLOPs', min_max_scaler=True)
+```
+
+Build regression model and train.
+
+```python
+# train data
+
+x_train, x_test, y_train, y_test = train_test_split(
+scaler_conv_data, times_data_conv2d, test_size=0.1, random_state=0)
+
+batch_model = keras.Sequential()
+batch_model.add(Dense(200, kernel_initializer='normal', activation='relu'))
+batch_model.add(Dense(200, kernel_initializer='normal', activation='relu'))
+batch_model.add(Dense(200, kernel_initializer='normal', activation='relu'))
+batch_model.add(Dense(200, kernel_initializer='normal', activation='relu'))
+batch_model.add(Dense(200, kernel_initializer='normal', activation='relu'))
+batch_model.add(Dense(1, kernel_initializer='normal'))
+
+# Compile model
+batch_model.compile(loss='mean_squared_error', optimizer='adam')
+
+ 
+history_batch = batch_model.fit(
+x_train, y_train, batch_size=16, epochs=15, validation_data=(x_test, y_test), verbose=True)
+
+```
+
+</details>  
 
 <details open>  
 <summary>Predict RNN Model Training Time</summary>  
