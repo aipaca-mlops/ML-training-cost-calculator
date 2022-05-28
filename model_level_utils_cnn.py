@@ -1256,12 +1256,33 @@ class ClassicModelTrainData:
         return x
 
     @staticmethod
-    def get_model(model_name, classes):
+    def get_model(model_name, classes=None, input_shape=None):
+        if classes is None:
+            classes = 1000
         cls_model_method = getattr(tka, model_name)
-        model = cls_model_method(classes=classes)
+        temp_model = cls_model_method()
+        input_shape_default = temp_model.get_config()['layers'][0]['config']['batch_input_shape'][1:]
+        if input_shape is None and classes==1000:
+            model = cls_model_method()
+        elif input_shape is None:
+            model = cls_model_method(include_top=False, input_shape = input_shape_default, classes=classes)
+            model = Sequential([
+                    model,
+                    Flatten(),
+                    Dense(1000),
+                    Dense(classes)
+                    ])
+        else:
+            model = cls_model_method(include_top=False, input_shape=tuple(input_shape), classes=classes)
+            model = Sequential([
+                    model,
+                    Flatten(),
+                    Dense(1000),
+                    Dense(classes)
+                    ])
         return model
 
-    def get_train_data(self, model_name, output_size=1000, progress=True):
+    def get_train_data(self, model_name, input_shape=None, output_size=1000, progress=True):
         model_data = []
         if progress:
             loop_fun = tqdm
@@ -1276,7 +1297,7 @@ class ClassicModelTrainData:
                         for device in gpu_devices:
                             tf.config.experimental.set_memory_growth(device, True)
 
-                        model = ClassicModelTrainData.get_model(model_name, output_size)
+                        model = ClassicModelTrainData.get_model(model_name, classes=output_size, input_shape=input_shape)
                         model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
                         input_shape = model.get_config(
                         )['layers'][0]['config']['batch_input_shape'][1:]
@@ -1648,4 +1669,4 @@ def demo_classic_models():
         optimizers=["sgd", "rmsprop", "adam"],
         losses=["mse", "msle", "poisson", "categorical_crossentropy"]
     )
-    model_data = cmtd.get_train_data('VGG16', output_size=1000, progress=True)
+    model_data = cmtd.get_train_data('VGG16', input_shape=None, output_size=1000, progress=True)

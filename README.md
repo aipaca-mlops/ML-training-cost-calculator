@@ -298,7 +298,7 @@ cmtd = ClassicModelTrainData(
 		optimizers=["sgd", "rmsprop", "adam"],
 		losses=["mse", "msle", "poisson", "categorical_crossentropy"])
 
-model_data = cmtd.get_train_data('VGG16', output_size=1000, progress=True)
+model_data = cmtd.get_train_data('VGG16', input_shape=None, output_size=1000, progress=True)
 ```  
 ```python
 batch_sizes = [i['batch_size'] for i in model_data]
