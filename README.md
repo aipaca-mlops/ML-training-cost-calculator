@@ -1,8 +1,9 @@
-# training-time-predictor  
+# Training Cost Calculator (TCC)
   
 This repository intends to provide a powerful toolbox for your machine learning model training time prediction, which includes training time data generation, training time pre-trained models for both tensorflow and pytorch environment.   
   
 Currently, this repository is still under developing.
+
 
 ## <div align="center">Documentation</div>  
 See the [Research Docs ](https://docs.google.com/document/d/1FLgQ58umOK8FmGb_iNfiACIAdGIlFEFSvfOBEQXfsyY/edit) for full documentation on motivation, related researches.
