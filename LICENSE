@@ -186,7 +186,15 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright [yyyy] [name of copyright owner]
+   All contributions by the Aipaca Inc:
+
+   Copyright (c) 2014, The Regents of the Aipaca Inc. (Regents)
+   All rights reserved.
+
+   All other contributions:
+
+   Copyright (c) 2014, the respective contributors
+   All rights reserved.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
