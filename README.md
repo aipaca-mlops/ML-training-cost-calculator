@@ -8,7 +8,7 @@ This repository intends to provide the world first open-source toolbox for predi
 
 ## <div align="center">Application</div>
 
-If you are training a model on a cloud instance, based on the unit cost, you are able to estimate training cost. This is why we named the toolbox Training Cost Calculator. You can apply TCC on multiple servers so that you know which one is the best fit for your training task.
+If you are training a model on a cloud instance, by multiplying with the cost per unit, you are able to estimate training cost. This is why we named the toolbox Training Cost Calculator. TCC can be applied on multiple servers from where you will know which instance is the best fit.
 
 ## <div align="center">Community</div>
 
@@ -33,10 +33,10 @@ Until June 1st, 2022, the TCC's main maintainers are [Yuqi Li](https://www.linke
 
 See the [Research Docs ](https://docs.google.com/document/d/1FLgQ58umOK8FmGb_iNfiACIAdGIlFEFSvfOBEQXfsyY/edit) for full progress on motivation, related researches.
 
-<details open>  
-<summary>Install</summary>  
-  
-Clone repo and install [requirements.txt](https://github.com/aipaca-mlops/ML-training-cost-predictor/blob/master/requirements.txt) in a  [**Python>=3.7.0**](https://www.python.org/) environment, including  [**Tensorflow>=2.3**](https://www.tensorflow.org/versions), including  [**Keras>=2.8.0**](https://github.com/keras-team/keras/releases).
+<details open>
+<summary>Install</summary>
+
+Clone repo and install [requirements.txt](https://github.com/aipaca-mlops/ML-training-cost-predictor/blob/master/requirements.txt) in a [**Python>=3.7.0**](https://www.python.org/) environment, including [**Tensorflow>=2.3**](https://www.tensorflow.org/versions), including [**Keras>=2.8.0**](https://github.com/keras-team/keras/releases).
 
 ```bash
 git clone https://github.com/aipaca-mlops/ML-training-cost-predictor.git  # clone
@@ -48,7 +48,7 @@ pip install -r requirements.txt  # install
 
 ## <div align="center">GPU Environment Check </div>
 
-<details open>  
+<details open>
 <summary>GPU Features</summary>
 
 Model training times depending on three factors, environment, model structure and data. Environment Check should be the first check before generating any data point.
@@ -92,7 +92,7 @@ gpufeature = gpu_features(
 
 ## <div align="center">Data Generation Quick Start Examples</div>
 
-<details open>  
+<details open>
 <summary>Generate Dense Model</summary>
 
 Generate model configs for feed forward network.
@@ -185,7 +185,7 @@ df, scaler = mtd.convert_config_data(
 
 </details>
 
-<details open>  
+<details open>
 <summary>Generate CNN Model</summary>
 
 Generate model configs for convolutional network.
@@ -325,7 +325,7 @@ model_data_dfs, time_df, scaler = mtd.convert_config_data(
 
 </details>
 
-<details open>  
+<details open>
 <summary>Generate Classic CNN Model Data</summary>
 
 People normally use pre-defined classic CNN structures instead of creating their own. We can also generate data for these specific models instead of random generated CNN models. This will help us increase the prediction accuracy.
@@ -370,13 +370,13 @@ ax = sns.catplot(x="optimizer", y="batch_time",
 plt.show()
 ```
 
-![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/VGG16data.png)
+![enter image description here](Images/VGG16data.png)
 
 It is interesting to observe that loss functions play less important role in terms of training time spending. Whereas batch sizes and optimizers have much apparent impact as we expected.
 
 </details>
 
-<details open>  
+<details open>
 <summary>Generate RNN Model</summary>
 
 Generate training time data for recurrent network.
@@ -389,7 +389,7 @@ put python steps here
 
 ## <div align="center">Training Time Prediction Quick Start Examples</div>
 
-<details open>  
+<details open>
 <summary>Predict Dense Model Training Time Using Model Level Structure</summary>
 
 Make a prediction for a feed forward network training time.
@@ -463,7 +463,7 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
 
-![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseRegressionHistory.png)
+![enter image description here](Images/DenseRegressionHistory.png)
 
 Plot prediction vs test.
 
@@ -475,7 +475,7 @@ plt.scatter(batch_y_pred, y_batch_test)
 plt.show()
 ```
 
-![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DensePredVSTest.png)
+![enter image description here](Images/DensePredVSTest.png)
 
 Now we train regression model for setup time model.
 
@@ -514,7 +514,7 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
 
-![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimeHistory.png)
+![enter image description here](Images/DenseSetuptimeHistory.png)
 
 Plot prediction vs test.
 
@@ -526,12 +526,12 @@ plt.scatter(setup_y_pred, y_setup_test)
 plt.show()
 ```
 
-![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/DenseSetuptimePredVSTest.png)
+![enter image description here](Images/DenseSetuptimePredVSTest.png)
 
 </details>
 
-<details open>  
-<summary>Predict Dense Model Training Time Using Unit 
+<details open>
+<summary>Predict Dense Model Training Time Using Unit
 Counts</summary>
 
 Now we do not convert model structure into features, instead, we simply use the sum of all units of all dense layers as the model feature. It turns out works great and gives much more flexibility.
@@ -603,7 +603,7 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
 
-![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/HistoryDenseUnitSum.png)
+![enter image description here](Images/HistoryDenseUnitSum.png)
 
 ```python
 batch_y_pred = batch_model.predict(x_test)
@@ -612,11 +612,11 @@ plt.scatter(batch_y_pred, y_test)
 plt.show()
 ```
 
-![enter image description here](https://raw.github.com/aipaca-mlops/ML-training-cost-calculator/create_readme_xin/Images/PredDenseUnitSum.png)
+![enter image description here](Images/PredDenseUnitSum.png)
 
 </details>
 
-<details open>  
+<details open>
 <summary>Predict CNN Model Training Time Using Model Level Structure</summary>
 
 Make a prediction for a convolutional network training time.
@@ -672,7 +672,7 @@ history_batch = batch_model.fit(
 
 </details>
 
-<details open>  
+<details open>
 <summary>Predict CNN Model Training Time Using FLOPs</summary>
 
 We first get FLOPs features.
@@ -711,7 +711,7 @@ x_train, y_train, batch_size=16, epochs=15, validation_data=(x_test, y_test), ve
 
 </details>
 
-<details open>  
+<details open>
 <summary>Predict RNN Model Training Time</summary>
 
 Make a prediction for a recurrent network training time.

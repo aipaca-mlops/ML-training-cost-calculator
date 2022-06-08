@@ -1,15 +1,3 @@
-"""
-****************************************
- * @author: Xin Zhang
- * Date: 8/22/21
-****************************************
-"""
-"""
-****************************************
- * @author: Xin Zhang
- * Date: 5/22/21
-****************************************
-"""
 import time
 import tensorflow.keras as keras
 from tqdm import tqdm
@@ -24,7 +12,8 @@ import copy
 activation_fcts = [
     'relu', "sigmoid", "softmax", "softplus", "softsign", "tanh", "selu", "elu", "exponential"
 ]
-optimizers = ["sgd", "rmsprop", "adam", "adadelta", "adagrad", "adamax", "nadam", "ftrl"]
+optimizers = ["sgd", "rmsprop", "adam", "adadelta",
+              "adagrad", "adamax", "nadam", "ftrl"]
 losses = ["mae", "mape", "mse", "msle", "poisson", "categorical_crossentropy"]
 rnn_layer_types = ['SimpleRNN', 'LSTM', 'GRU']
 
@@ -57,9 +46,12 @@ class TimeHistory(keras.callbacks.Callback):
         self.batch_times_detail.append((self.bacth_time_start, batch_time_end))
 
     def relative_by_train_start(self):
-        self.epoch_times_detail = np.array(self.epoch_times_detail) - self.train_start_time
-        self.batch_times_detail = np.array(self.batch_times_detail) - self.train_start_time
-        self.train_end_time = np.array(self.train_end_time) - self.train_start_time
+        self.epoch_times_detail = np.array(
+            self.epoch_times_detail) - self.train_start_time
+        self.batch_times_detail = np.array(
+            self.batch_times_detail) - self.train_start_time
+        self.train_end_time = np.array(
+            self.train_end_time) - self.train_start_time
 
 
 class gen_rnn:
@@ -114,7 +106,8 @@ class gen_rnn:
         for index, size in enumerate(rnn_layer_sizes + dense_layer_sizes):
             if index < len(rnn_layer_sizes) - 1:
                 model.add(
-                    rnn_layer(units=size, activation=activations[index], return_sequences=True)
+                    rnn_layer(
+                        units=size, activation=activations[index], return_sequences=True)
                 )
             elif index == len(rnn_layer_sizes) - 1:
                 model.add(rnn_layer(units=size, activation=activations[index]))
@@ -136,7 +129,8 @@ class gen_rnn:
         return layer_sizes, acts, layer_Type
 
     def generate_model(self):
-        rnn_layers_num = np.random.randint(self.rnn_layers_num_lower, self.rnn_layers_num_upper)
+        rnn_layers_num = np.random.randint(
+            self.rnn_layers_num_lower, self.rnn_layers_num_upper)
         rnn_layer_sizes = np.random.randint(
             self.rnn_layer_size_lower, self.rnn_layer_size_upper, rnn_layers_num
         )
@@ -148,7 +142,8 @@ class gen_rnn:
         )
 
         if self.activation_pick == 'random':
-            activations = np.random.choice(self.activation_fcts, rnn_layers_num + dense_layers_num)
+            activations = np.random.choice(
+                self.activation_fcts, rnn_layers_num + dense_layers_num)
         else:
             activations = np.random.choice([self.activation_pick],
                                            rnn_layers_num + dense_layers_num)
@@ -213,8 +208,10 @@ class model_train_data:
         for info_dict in model_configs:
             d2 = copy.deepcopy(info_dict)
             self.model_configs.append(d2)
-        self.input_dims = input_dims if input_dims is not None else list(range(1, 101))
-        self.batch_sizes = batch_sizes if batch_sizes is not None else [2**i for i in range(1, 9)]
+        self.input_dims = input_dims if input_dims is not None else list(
+            range(1, 101))
+        self.batch_sizes = batch_sizes if batch_sizes is not None else [
+            2**i for i in range(1, 9)]
         self.epochs = epochs if epochs is not None else 10
         self.truncate_from = truncate_from if truncate_from is not None else 2
         self.trials = trials if trials is not None else 5
@@ -222,9 +219,12 @@ class model_train_data:
         self.activation_fcts = activation_fcts
         self.optimizers = optimizers
         self.losses = losses
-        self.act_mapping = dict((act, index + 1) for index, act in enumerate(self.activation_fcts))
-        self.opt_mapping = dict((opt, index + 1) for index, opt in enumerate(self.optimizers))
-        self.loss_mapping = dict((loss, index + 1) for index, loss in enumerate(self.losses))
+        self.act_mapping = dict((act, index + 1)
+                                for index, act in enumerate(self.activation_fcts))
+        self.opt_mapping = dict((opt, index + 1)
+                                for index, opt in enumerate(self.optimizers))
+        self.loss_mapping = dict((loss, index + 1)
+                                 for index, loss in enumerate(self.losses))
 
     def get_train_data(self, progress=True):
         model_data = []
@@ -252,7 +252,8 @@ class model_train_data:
                 batch_size_data_epoch = []
                 if self.input_dim_strategy == 'same':
                     try:
-                        input_shape = model.get_config()['layers'][0]['config']['units']
+                        input_shape = model.get_config(
+                        )['layers'][0]['config']['units']
                     except:
                         input_shape = model.get_config(
                         )['layers'][0]['config']['batch_input_shape'][2]
@@ -285,7 +286,8 @@ class model_train_data:
                 model_config['batch_size'] = batch_size
                 model_config['batch_time'] = np.median(batch_times_truncated)
                 model_config['epoch_time'] = np.median(epoch_times_trancuted)
-                model_config['setup_time'] = np.sum(batch_size_data_batch) - sum(recovered_time)
+                model_config['setup_time'] = np.sum(
+                    batch_size_data_batch) - sum(recovered_time)
                 model_config['input_dim'] = input_shape
             model_data.append(model_config)
         return model_data
@@ -364,9 +366,12 @@ class convert_rnn_data:
                                                                         all_batch_sizes,
                                                                         all_optimizers,
                                                                         all_rnn_types))):
-            optimizer_onehot = list(self.opt_enc.transform([[opt]]).toarray()[0])
-            rnn_type_onehot = list(self.rnn_enc.transform([[rnn_type]]).toarray()[0])
-            rnn_data.append([rnn_size, dense_size, batch] + optimizer_onehot + rnn_type_onehot)
+            optimizer_onehot = list(
+                self.opt_enc.transform([[opt]]).toarray()[0])
+            rnn_type_onehot = list(
+                self.rnn_enc.transform([[rnn_type]]).toarray()[0])
+            rnn_data.append([rnn_size, dense_size, batch] +
+                            optimizer_onehot + rnn_type_onehot)
 
         if min_max_scaler:
             scaler = MinMaxScaler()
@@ -380,13 +385,17 @@ class convert_rnn_data:
         self, rnn_model_obj, optimizer, batch_size, data_type='Unit', scaler=None
     ):
         rnn_type = convert_rnn_data.get_rnn_type(rnn_model_obj)
-        dense_unit_sum = convert_rnn_data.get_units_sum_dense_keras(rnn_model_obj)
+        dense_unit_sum = convert_rnn_data.get_units_sum_dense_keras(
+            rnn_model_obj)
         rnn_unit_sum = convert_rnn_data.get_units_sum_rnn_keras(rnn_model_obj)
 
-        optimizer_onehot = list(self.opt_enc.transform([[optimizer]]).toarray()[0])
-        rnn_type_onehot = list(self.rnn_enc.transform([[rnn_type]]).toarray()[0])
+        optimizer_onehot = list(
+            self.opt_enc.transform([[optimizer]]).toarray()[0])
+        rnn_type_onehot = list(
+            self.rnn_enc.transform([[rnn_type]]).toarray()[0])
 
-        layer_data = [rnn_unit_sum, dense_unit_sum, batch_size] + optimizer_onehot + rnn_type_onehot
+        layer_data = [rnn_unit_sum, dense_unit_sum,
+                      batch_size] + optimizer_onehot + rnn_type_onehot
 
         if scaler is not None:
             scaled_data = scaler.transform(np.array([layer_data]))
