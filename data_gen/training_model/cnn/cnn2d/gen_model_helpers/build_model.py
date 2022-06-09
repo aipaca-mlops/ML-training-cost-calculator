@@ -1,7 +1,7 @@
 import collections
 import random
 
-from data_gen.training_model.constant import CNN_CONFIG
+from data_gen.training_model.constant import CNN2D_CONFIG
 
 
 class BuildModel:
@@ -16,7 +16,7 @@ class BuildModel:
         activations=None,
         optimizers=None,
         losses=None,
-        activation_fcts=CNN_CONFIG["activation_fcts"],
+        activation_fcts=CNN2D_CONFIG["activation_fcts"],
     ):
         self.kwargs_list: list
         self.layer_orders: list

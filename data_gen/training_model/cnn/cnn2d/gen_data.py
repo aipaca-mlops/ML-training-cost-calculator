@@ -6,9 +6,8 @@ import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler
 from tqdm.auto import tqdm
 
-from data_gen.training_model.cnn.gen_model import GenCnn2d
-from data_gen.training_model.constant import CNN_CONFIG
-from data_gen.training_model.constant import TRAINING_CONTEXT_MGR
+from data_gen.training_model.cnn.cnn2d.gen_model import GenCnn2d
+from data_gen.training_model.constant import CNN2D_CONFIG
 from data_gen.training_model.util.time_his import TimeHistoryBasic
 
 
@@ -16,31 +15,28 @@ class Cnn2dModelTrainData:
     def __init__(
         self,
         model_configs,
-        batch_sizes=None,
-        epochs=None,
-        truncate_from=None,
-        trials=None,
-        activation_fcts=CNN_CONFIG["activation_fcts"],
-        optimizers=CNN_CONFIG["optimizers"],
-        losses=CNN_CONFIG["losses"],
-        paddings=CNN_CONFIG["paddings"],
+        batch_sizes=CNN2D_CONFIG["batch_sizes"],
+        epochs=CNN2D_CONFIG["epochs"],
+        truncate_from=CNN2D_CONFIG["truncate_from"],
+        trials=CNN2D_CONFIG["trials"],
+        activation_fcts=CNN2D_CONFIG["activation_fcts"],
+        optimizers=CNN2D_CONFIG["optimizers"],
+        losses=CNN2D_CONFIG["losses"],
+        paddings=CNN2D_CONFIG["paddings"],
     ):
         self.model_configs = []
         for info_list in model_configs:
             self.model_configs.append(info_list.copy())
-        self.batch_sizes = (
-            batch_sizes if batch_sizes is not None else [
-                2 ** i for i in range(1, 9)]
-        )
-        self.epochs = epochs if epochs is not None else 10
-        self.truncate_from = truncate_from if truncate_from is not None else 2
-        self.trials = trials if trials is not None else 5
+        self.batch_sizes = batch_sizes 
+        self.epochs = epochs
+        self.truncate_from = truncate_from
+        self.trials = trials
         self.activation_fcts = activation_fcts
         self.optimizers = optimizers
         self.losses = losses
         self.paddings = paddings
 
-    def get_train_data(self, progress=True):
+    def get_train_data(self, progress=True, verbose=False):
         model_data = []
         model_configs = []
         if progress:
@@ -63,15 +59,14 @@ class Cnn2dModelTrainData:
                 y = np.ones((batch_size, out_shape), dtype=np.float32)
                 for _ in range(self.trials):
                     time_callback = TimeHistoryBasic()
-                    with TRAINING_CONTEXT_MGR:
-                        model.fit(
-                            x,
-                            y,
-                            epochs=self.epochs,
-                            batch_size=batch_size,
-                            callbacks=[time_callback],
-                            verbose=True,
-                        )
+                    model.fit(
+                        x,
+                        y,
+                        epochs=self.epochs,
+                        batch_size=batch_size,
+                        callbacks=[time_callback],
+                        verbose=verbose,
+                    )
                     times_batch = np.array(time_callback.batch_times) * 1000
                     times_epoch = np.array(time_callback.epoch_times) * 1000
                     batch_size_data_batch.extend(times_batch)

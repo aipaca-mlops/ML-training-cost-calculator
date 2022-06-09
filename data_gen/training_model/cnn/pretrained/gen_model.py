@@ -9,44 +9,25 @@ from tensorflow.python.keras.models import Sequential
 from tqdm.auto import tqdm
 
 from data_gen.training_model.util.time_his import TimeHistoryBasic
+from data_gen.training_model.constant import CNN_PRETRAINED_CONFIG
 
 
 class GenPreTrainedCnn:
     def __init__(
         self,
-        batch_sizes=None,
-        optimizers=None,
-        losses=None,
-        epochs=None,
-        truncate_from=None,
-        trials=None,
+        batch_sizes=CNN_PRETRAINED_CONFIG["batch_sizes"],
+        optimizers=CNN_PRETRAINED_CONFIG["optimizers"],
+        losses=CNN_PRETRAINED_CONFIG["losses"],
+        epochs=CNN_PRETRAINED_CONFIG["epochs"],
+        truncate_from=CNN_PRETRAINED_CONFIG["truncate_from"],
+        trials=CNN_PRETRAINED_CONFIG["trials"],
     ):
-        self.batch_sizes = (
-            batch_sizes if batch_sizes is not None else [
-                2 ** i for i in range(1, 9)]
-        )
-        self.epochs = epochs if epochs is not None else 10
-        self.truncate_from = truncate_from if truncate_from is not None else 2
-        self.trials = trials if trials is not None else 5
-        self.optimizers = (
-            optimizers
-            if optimizers is not None
-            else [
-                "sgd",
-                "rmsprop",
-                "adam",
-                "adadelta",
-                "adagrad",
-                "adamax",
-                "nadam",
-                "ftrl",
-            ]
-        )
-        self.losses = (
-            losses
-            if losses is not None
-            else ["mae", "mape", "mse", "msle", "poisson", "categorical_crossentropy"]
-        )
+        self.batch_sizes = batch_sizes
+        self.epochs = epochs
+        self.truncate_from = truncate_from 
+        self.trials = trials
+        self.optimizers = optimizers
+        self.losses = losses
 
     @staticmethod
     def nothing(x, **kwargs):

@@ -33,6 +33,11 @@ paddings:
   - "same"
   - "valid"
 
+
+epochs: 10
+truncate_from: 2
+trials: 5
+batch_sizes: [2, 4, 8, 16, 32, 64, 128, 256]
 input_shape_lower: 8
 input_shape_upper: 29
 conv_layer_num_lower: 1

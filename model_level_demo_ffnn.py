@@ -7,7 +7,6 @@ from keras.layers import Dense
 from keras.models import Sequential
 from tqdm import tqdm
 
-from data_gen.training_model.constant import TRAINING_CONTEXT_MGR
 from data_gen.training_model.ffnn.gen_data import GenData
 from data_gen.training_model.ffnn.gen_model import GenModel
 from data_gen.training_model.util.time_his import TimeHistoryBasic
@@ -223,15 +222,14 @@ def test_tt_prediction(
         y = np.ones((data_size_val, out_shape), dtype=np.float32)
 
         time_callback = TimeHistoryBasic()
-        with TRAINING_CONTEXT_MGR:
-            model_val.fit(
-                x,
-                y,
-                epochs=epochs_val,
-                batch_size=batch_size_val,
-                callbacks=[time_callback],
-                verbose=False,
-            )
+        model_val.fit(
+            x,
+            y,
+            epochs=epochs_val,
+            batch_size=batch_size_val,
+            callbacks=[time_callback],
+            verbose=False,
+        )
 
         batch_median = np.median(time_callback.batch_times[2:])
         # remove first batch to remove the effect of setup, and compensate with

@@ -9,11 +9,11 @@ from tensorflow.python.framework.convert_to_constants import (
 )
 from tqdm.auto import tqdm
 
-from data_gen.training_model.constant import CNN_CONFIG
+from data_gen.training_model.constant import CNN2D_CONFIG
 
 
 class FlopLevelData:
-    def __init__(self, optimizers=CNN_CONFIG["optimizers"]):
+    def __init__(self, optimizers=CNN2D_CONFIG["optimizers"]):
         self.optimizers = optimizers
 
         unique_all_optimizers = sorted(list(set(self.optimizers)))

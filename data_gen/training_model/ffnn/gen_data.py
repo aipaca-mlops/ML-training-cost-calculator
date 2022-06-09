@@ -4,16 +4,12 @@ from random import sample
 import numpy as np
 from tqdm import tqdm
 
-from data_gen.hardware.env_detect import GeneralFeatures
 from data_gen.training_model.constant import FFNN_CONFIG
-from data_gen.training_model.constant import IS_M1
-from data_gen.training_model.constant import TRAINING_CONTEXT_MGR
 from data_gen.training_model.ffnn.gen_data_helpers.flop_level_data import FlopLevelData
 from data_gen.training_model.ffnn.gen_data_helpers.model_level_data import (
     ModelLevelData,
 )
 from data_gen.training_model.ffnn.gen_model import GenModel
-from data_gen.training_model.util.dummy_context_mgr import dummy_context_mgr
 from data_gen.training_model.util.time_his import TimeHistoryBasic
 
 
@@ -97,15 +93,14 @@ class GenData(ModelLevelData, FlopLevelData):
                 y = np.ones((batch_size, out_shape), dtype=np.float32)
                 for _ in range(self.trials):
                     time_callback = TimeHistoryBasic()
-                    with TRAINING_CONTEXT_MGR:
-                        model.fit(
-                            x,
-                            y,
-                            epochs=self.epochs,
-                            batch_size=batch_size,
-                            callbacks=[time_callback],
-                            verbose=False,
-                        )
+                    model.fit(
+                        x,
+                        y,
+                        epochs=self.epochs,
+                        batch_size=batch_size,
+                        callbacks=[time_callback],
+                        verbose=False,
+                    )
                     times_batch = np.array(time_callback.batch_times) * 1000
                     times_epoch = np.array(time_callback.epoch_times) * 1000
                     batch_size_data_batch.extend(times_batch)

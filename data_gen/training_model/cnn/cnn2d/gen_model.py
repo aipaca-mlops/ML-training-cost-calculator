@@ -7,30 +7,30 @@ from tensorflow.python.keras.layers import MaxPooling2D
 from tensorflow.python.keras.models import Sequential
 from tqdm.auto import tqdm
 
-from data_gen.training_model.cnn.gen_model_helpers.custom.build_model import BuildModel
-from data_gen.training_model.cnn.gen_model_helpers.custom.cnn_rules import CnnRules
-from data_gen.training_model.constant import CNN_CONFIG
+from data_gen.training_model.cnn.cnn2d.gen_model_helpers.build_model import BuildModel
+from data_gen.training_model.cnn.cnn2d.gen_model_helpers.cnn_rules import CnnRules
+from data_gen.training_model.constant import CNN2D_CONFIG
 
 
 class GenCnn2d:
     def __init__(
         self,
-        input_shape_lower=CNN_CONFIG["input_shape_lower"],
-        input_shape_upper=CNN_CONFIG["input_shape_upper"],
-        conv_layer_num_lower=CNN_CONFIG["conv_layer_num_lower"],
-        conv_layer_num_upper=CNN_CONFIG["conv_layer_num_upper"],
-        filter_lower=CNN_CONFIG["filter_lower"],
-        filter_upper=CNN_CONFIG["filter_upper"],
-        dense_layer_num_lower=CNN_CONFIG["dense_layer_num_lower"],
-        dense_layer_num_upper=CNN_CONFIG["dense_layer_num_upper"],
-        dense_size_lower=CNN_CONFIG["dense_size_lower"],
-        dense_size_upper=CNN_CONFIG["dense_size_upper"],
-        max_pooling_prob=CNN_CONFIG["max_pooling_prob"],
-        input_channels=CNN_CONFIG["input_channels"],
-        paddings=CNN_CONFIG["paddings"],
-        activation_fcts=CNN_CONFIG["activation_fcts"],
-        optimizers=CNN_CONFIG["optimizers"],
-        losses=CNN_CONFIG["losses"],
+        input_shape_lower=CNN2D_CONFIG["input_shape_lower"],
+        input_shape_upper=CNN2D_CONFIG["input_shape_upper"],
+        conv_layer_num_lower=CNN2D_CONFIG["conv_layer_num_lower"],
+        conv_layer_num_upper=CNN2D_CONFIG["conv_layer_num_upper"],
+        filter_lower=CNN2D_CONFIG["filter_lower"],
+        filter_upper=CNN2D_CONFIG["filter_upper"],
+        dense_layer_num_lower=CNN2D_CONFIG["dense_layer_num_lower"],
+        dense_layer_num_upper=CNN2D_CONFIG["dense_layer_num_upper"],
+        dense_size_lower=CNN2D_CONFIG["dense_size_lower"],
+        dense_size_upper=CNN2D_CONFIG["dense_size_upper"],
+        max_pooling_prob=CNN2D_CONFIG["max_pooling_prob"],
+        input_channels=CNN2D_CONFIG["input_channels"],
+        paddings=CNN2D_CONFIG["paddings"],
+        activation_fcts=CNN2D_CONFIG["activation_fcts"],
+        optimizers=CNN2D_CONFIG["optimizers"],
+        losses=CNN2D_CONFIG["losses"],
     ):
         self.input_shape_lower = input_shape_lower
         self.input_shape_upper = input_shape_upper

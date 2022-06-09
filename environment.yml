@@ -1,0 +1,10 @@
+name: tcc
+dependencies:
+  - python
+  - numpy
+  - tensorflow
+  - matplotlib
+  - pandas
+  - keras
+  - tqdm
+  - scikit-learn
