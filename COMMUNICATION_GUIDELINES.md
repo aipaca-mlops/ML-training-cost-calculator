@@ -8,7 +8,7 @@ All our repositories are housed within the Aipaca organization.
 
 ### Enforcing to the code of conduct
 
-Our [CODE OF CONDUCT](templates/code-of-conduct.md) outlines the behavior we expect from our community. Maintainers are responsible for enforcing violations they witness, or those that have been reported to hello@aipaca.ai.
+Our [CODE OF CONDUCT](CODE_OF_CONDUCT.md) outlines the behavior we expect from our community. Maintainers are responsible for enforcing violations they witness, or those that have been reported to hello@aipaca.ai.
 
 Violations are not tolerated, but there are always some gray areas.
 
