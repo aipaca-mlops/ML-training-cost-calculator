@@ -92,13 +92,8 @@ gpufeature = gpu_features(
 
 ## <div align="center">Data Generation Quick Start Examples</div>
 
-<<<<<<< HEAD
-<details open>
-<summary>Generate Dense Model</summary>
-=======
 <details open>  
 <summary>Generate a Dense Model</summary>
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 Generate model configs for feed forward network.
 
