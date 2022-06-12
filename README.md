@@ -92,13 +92,8 @@ gpufeature = gpu_features(
 
 ## <div align="center">Data Generation Quick Start Examples</div>
 
-<<<<<<< HEAD
-<details open>
-<summary>Generate Dense Model</summary>
-=======
 <details open>  
 <summary>Generate a Dense Model</summary>
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 Generate model configs for feed forward network.
 
@@ -375,7 +370,7 @@ ax = sns.catplot(x="optimizer", y="batch_time",
 plt.show()
 ```
 
-![VGG16data.png](https://github.com/aipaca-mlops/ML-training-cost-calculator/blob/main/Images/VGG16data.png)
+![VGG16data.png](https://github.com/aipaca-mlops/ML-training-cost-calculator/blob/main/images/VGG16data.png)
 
 It is interesting to observe that loss functions play a less important role in terms of training time spending. On the other hand, batch sizes and optimizers have much more apparent impact as we expected.
 
@@ -468,11 +463,7 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
 
-<<<<<<< HEAD
-![enter image description here](Images/DenseRegressionHistory.png)
-=======
-![Dense Regression History](Images/DenseRegressionHistory.png)
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
+![Dense Regression History](images/DenseRegressionHistory.png)
 
 Plot prediction vs test.
 
@@ -484,11 +475,7 @@ plt.scatter(batch_y_pred, y_batch_test)
 plt.show()
 ```
 
-<<<<<<< HEAD
-![enter image description here](Images/DensePredVSTest.png)
-=======
-![Dense Pred VS Test](Images/DensePredVSTest.png)
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
+![Dense Pred VS Test](images/DensePredVSTest.png)
 
 Now we train regression model for setup time model.
 
@@ -527,11 +514,7 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
 
-<<<<<<< HEAD
-![enter image description here](Images/DenseSetuptimeHistory.png)
-=======
-![Dense Setup Time History](Images/DenseSetuptimeHistory.png)
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
+![Dense Setup Time History](images/DenseSetuptimeHistory.png)
 
 Plot prediction vs test.
 
@@ -543,7 +526,7 @@ plt.scatter(setup_y_pred, y_setup_test)
 plt.show()
 ```
 
-![Dense Setup Time Pred VS Test](Images/DenseSetuptimePredVSTest.png)
+![Dense Setup Time Pred VS Test](images/DenseSetuptimePredVSTest.png)
 
 </details>
 
@@ -620,7 +603,7 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
 
-![History Dense Unit Sum](Images/HistoryDenseUnitSum.png)
+![History Dense Unit Sum](images/HistoryDenseUnitSum.png)
 
 ```python
 batch_y_pred = batch_model.predict(x_test)
@@ -629,7 +612,7 @@ plt.scatter(batch_y_pred, y_test)
 plt.show()
 ```
 
-![Pred Dense Unit Sum](Images/PredDenseUnitSum.png)
+![Pred Dense Unit Sum](images/PredDenseUnitSum.png)
 
 </details>
 
