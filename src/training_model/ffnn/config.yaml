@@ -1,0 +1,39 @@
+# Define the default model configuration
+
+
+activation_fcts:
+  - "relu"
+  - "sigmoid"
+  - "softmax"
+  - "softplus"
+  - "softsign"
+  - "tanh"
+  - "selu"
+  - "elu"
+  - "exponential"
+activation_pick: "random"
+
+optimizers:
+  - "sgd"
+  - "rmsprop"
+  - "adam"
+  - "adadelta"
+  - "adagrad"
+  - "adamax"
+  - "nadam"
+  - "ftrl"
+optimizer_pick: "random"
+
+losses:
+  - "mae"
+  - "mape"
+  - "mse"
+  - "msle"
+  - "poisson"
+  - "categorical_crossentropy"
+loss_pick: "random"
+
+hidden_layers_num_lower: 5
+hidden_layers_num_upper: 101
+hidden_layer_size_lower: 1
+hidden_layer_size_upper: 1001

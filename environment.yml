@@ -1,10 +1,13 @@
 name: tcc
+channels:
+  - conda-forge
 dependencies:
   - python
-  - numpy
+  - numpy=1.19
   - tensorflow
   - matplotlib
   - pandas
   - keras
   - tqdm
   - scikit-learn
+  - pre-commit
