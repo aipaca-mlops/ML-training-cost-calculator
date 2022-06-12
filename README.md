@@ -8,11 +8,7 @@ This repository intends to provide the world's first open-source toolbox for pre
 
 ## <div align="center">Application</div>
 
-<<<<<<< HEAD
-If you are training a model on a cloud instance, by multiplying with the cost per unit, you are able to estimate training cost. This is why we named the toolbox Training Cost Calculator. TCC can be applied on multiple servers from where you will know which instance is the best fit.
-=======
 If you are training a model on a cloud instance, based on the unit cost, you are able to estimate training cost. This is why we named the toolbox ``Training Cost Calculator``. You can apply TCC on multiple servers so that you know which one is the best fit for your training task.
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 ## <div align="center">Community</div>
 
@@ -37,17 +33,10 @@ Until June 1st, 2022, the TCC's main maintainers are [Yuqi Li](https://www.linke
 
 See the [Research Docs](https://docs.google.com/document/d/1FLgQ58umOK8FmGb_iNfiACIAdGIlFEFSvfOBEQXfsyY/edit) for full progress on motivations, and related research.
 
-<<<<<<< HEAD
-<details open>
-<summary>Install</summary>
-
-Clone repo and install [requirements.txt](https://github.com/aipaca-mlops/ML-training-cost-predictor/blob/master/requirements.txt) in a [**Python>=3.7.0**](https://www.python.org/) environment, including [**Tensorflow>=2.3**](https://www.tensorflow.org/versions), including [**Keras>=2.8.0**](https://github.com/keras-team/keras/releases).
-=======
 <details open>  
 <summary>Install</summary>  
   
 Clone this repo and install [requirements.txt](https://github.com/aipaca-mlops/ML-training-cost-predictor/blob/master/requirements.txt) in a  [**Python>=3.7.0**](https://www.python.org/) environment, including  [**Tensorflow>=2.3**](https://www.tensorflow.org/versions), including  [**Keras>=2.8.0**](https://github.com/keras-team/keras/releases).
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 ```bash
 git clone https://github.com/aipaca-mlops/ML-training-cost-predictor.git  # clone
@@ -201,13 +190,8 @@ df, scaler = mtd.convert_config_data(
 
 </details>
 
-<<<<<<< HEAD
-<details open>
-<summary>Generate CNN Model</summary>
-=======
 <details open>  
 <summary>Generate a CNN Model</summary>
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 Generate model configs for a convolutional neural network.
 
@@ -391,23 +375,14 @@ ax = sns.catplot(x="optimizer", y="batch_time",
 plt.show()
 ```
 
-<<<<<<< HEAD
-![enter image description here](Images/VGG16data.png)
-=======
 ![VGG16data.png](https://github.com/aipaca-mlops/ML-training-cost-calculator/blob/main/Images/VGG16data.png)
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 It is interesting to observe that loss functions play a less important role in terms of training time spending. On the other hand, batch sizes and optimizers have much more apparent impact as we expected.
 
 </details>
 
-<<<<<<< HEAD
-<details open>
-<summary>Generate RNN Model</summary>
-=======
 <details open>  
 <summary>Generate a RNN Model</summary>
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 Generate training time data for a recurrent neural network.
 
@@ -568,11 +543,7 @@ plt.scatter(setup_y_pred, y_setup_test)
 plt.show()
 ```
 
-<<<<<<< HEAD
-![enter image description here](Images/DenseSetuptimePredVSTest.png)
-=======
 ![Dense Setup Time Pred VS Test](Images/DenseSetuptimePredVSTest.png)
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 </details>
 
@@ -649,11 +620,7 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
 
-<<<<<<< HEAD
-![enter image description here](Images/HistoryDenseUnitSum.png)
-=======
 ![History Dense Unit Sum](Images/HistoryDenseUnitSum.png)
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 ```python
 batch_y_pred = batch_model.predict(x_test)
@@ -662,11 +629,7 @@ plt.scatter(batch_y_pred, y_test)
 plt.show()
 ```
 
-<<<<<<< HEAD
-![enter image description here](Images/PredDenseUnitSum.png)
-=======
 ![Pred Dense Unit Sum](Images/PredDenseUnitSum.png)
->>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 </details>
 
