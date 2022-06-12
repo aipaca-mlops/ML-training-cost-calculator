@@ -12,6 +12,5 @@ Our [CODE OF CONDUCT](CODE_OF_CONDUCT.md) outlines the behavior we expect from o
 
 Violations are not tolerated, but there are always some gray areas.
 
-- **All incidents** are logged in our <INTERNAL TOOL>. This ensures gray areas do not escalate to a violation without the awareness of all maintainers.
 - **Indirect violations or gray areas** can usually be addressed with a warning. Send the user a direct message if possible (say, if they're on our Slack instance). If the violation occurred in an issue, pull request, or other public space, you should respond publicly as well. It is important that all community members see violations are not tolerated.
 - **Direction violations** require action immediately. This may include removing an offensive comment, [blocking the user](https://help.github.com/articles/blocking-a-user-from-your-organization/) from our organization, and [reporting them to GitHub](https://help.github.com/articles/reporting-abuse-or-spam/) directly.

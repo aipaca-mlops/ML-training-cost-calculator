@@ -4,11 +4,15 @@
 
 # Training Cost Calculator (TCC)
 
-This repository intends to provide the world first open-source toolbox for predicting your machine learning model training time. It includes training time data generation and TCC models. Our current prediction focus on models built by Tensorflow.
+This repository intends to provide the world's first open-source toolbox for predicting your machine learning model's training time. It includes training time data generation and TCC models. Our current prediction focuses on models built by Tensorflow.
 
 ## <div align="center">Application</div>
 
+<<<<<<< HEAD
 If you are training a model on a cloud instance, by multiplying with the cost per unit, you are able to estimate training cost. This is why we named the toolbox Training Cost Calculator. TCC can be applied on multiple servers from where you will know which instance is the best fit.
+=======
+If you are training a model on a cloud instance, based on the unit cost, you are able to estimate training cost. This is why we named the toolbox ``Training Cost Calculator``. You can apply TCC on multiple servers so that you know which one is the best fit for your training task.
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 ## <div align="center">Community</div>
 
@@ -31,16 +35,23 @@ Until June 1st, 2022, the TCC's main maintainers are [Yuqi Li](https://www.linke
 
 ## <div align="center">Research Docs</div>
 
-See the [Research Docs ](https://docs.google.com/document/d/1FLgQ58umOK8FmGb_iNfiACIAdGIlFEFSvfOBEQXfsyY/edit) for full progress on motivation, related researches.
+See the [Research Docs](https://docs.google.com/document/d/1FLgQ58umOK8FmGb_iNfiACIAdGIlFEFSvfOBEQXfsyY/edit) for full progress on motivations, and related research.
 
+<<<<<<< HEAD
 <details open>
 <summary>Install</summary>
 
 Clone repo and install [requirements.txt](https://github.com/aipaca-mlops/ML-training-cost-predictor/blob/master/requirements.txt) in a [**Python>=3.7.0**](https://www.python.org/) environment, including [**Tensorflow>=2.3**](https://www.tensorflow.org/versions), including [**Keras>=2.8.0**](https://github.com/keras-team/keras/releases).
+=======
+<details open>  
+<summary>Install</summary>  
+  
+Clone this repo and install [requirements.txt](https://github.com/aipaca-mlops/ML-training-cost-predictor/blob/master/requirements.txt) in a  [**Python>=3.7.0**](https://www.python.org/) environment, including  [**Tensorflow>=2.3**](https://www.tensorflow.org/versions), including  [**Keras>=2.8.0**](https://github.com/keras-team/keras/releases).
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 ```bash
 git clone https://github.com/aipaca-mlops/ML-training-cost-predictor.git  # clone
-cd ML-training-cost-calculator
+cd ML-training-cost-calculator # move to right directory
 pip install -r requirements.txt  # install
 ```
 
@@ -51,11 +62,11 @@ pip install -r requirements.txt  # install
 <details open>
 <summary>GPU Features</summary>
 
-Model training times depending on three factors, environment, model structure and data. Environment Check should be the first check before generating any data point.
+Model training times are dependant on three factors: environment, model structure, and data. An environment check should be the first check before generating any data points.
 
-Environment configuration should be features for training time prediction for your own experiment if you have multiple environments.
+Environment configuration should become features for training time prediction for your own experiment if you have multiple environments.
 
-Reference [**here**](https://nvidia.custhelp.com/app/answers/detail/a_id/3751/~/useful-nvidia-smi-queries) for all feature names.
+Reference [**this**](https://nvidia.custhelp.com/app/answers/detail/a_id/3751/~/useful-nvidia-smi-queries) for all feature names.
 
 ```python
 from env_detect import gpu_features
@@ -92,8 +103,13 @@ gpufeature = gpu_features(
 
 ## <div align="center">Data Generation Quick Start Examples</div>
 
+<<<<<<< HEAD
 <details open>
 <summary>Generate Dense Model</summary>
+=======
+<details open>  
+<summary>Generate a Dense Model</summary>
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 Generate model configs for feed forward network.
 
@@ -129,7 +145,7 @@ Check out what is inside model_configs.
 'loss': 'poisson'}
 ```
 
-Next we can use generated model configurations to get training times. This might take a while depending on your GPU.
+Next we can use the generated model's configurations to get training times. This might take a while depending on your GPU.
 
 ```python
 # train generated model configurations to get training time
@@ -163,7 +179,7 @@ Check out what is inside model_data.
 				}
 ```
 
-Now we can convert generated data into pandas dataframe.
+Now we can convert the generated data into a pandas dataframe.
 
 ```python
 # convert raw data as dataframe and scaler
@@ -185,10 +201,15 @@ df, scaler = mtd.convert_config_data(
 
 </details>
 
+<<<<<<< HEAD
 <details open>
 <summary>Generate CNN Model</summary>
+=======
+<details open>  
+<summary>Generate a CNN Model</summary>
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
-Generate model configs for convolutional network.
+Generate model configs for a convolutional neural network.
 
 ```python
 from model_trainingtime_prediction.model_level_utils_cnn import gen_cnn2d, cnn2d_model_train_data
@@ -240,7 +261,7 @@ Check out what is inside model_configs.
 
 ```
 
-Next we can use generated model configurations to get training times. This might take a while depending on your GPU.
+Next we can use the generated model's configurations to get training times. This might take a while depending on your GPU.
 
 ```python
 # train generated model configurations to get training time
@@ -280,7 +301,7 @@ Check out what is inside model_data.
 
 ```
 
-Now we can convert generated data into pandas dataframes.
+Now we can convert the generated data into a pandas dataframes.
 
 ```python
 # 15 from conv_layer_num_upper * 2 + dense_layer_num_upper
@@ -370,16 +391,25 @@ ax = sns.catplot(x="optimizer", y="batch_time",
 plt.show()
 ```
 
+<<<<<<< HEAD
 ![enter image description here](Images/VGG16data.png)
+=======
+![VGG16data.png](https://github.com/aipaca-mlops/ML-training-cost-calculator/blob/main/Images/VGG16data.png)
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
-It is interesting to observe that loss functions play less important role in terms of training time spending. Whereas batch sizes and optimizers have much apparent impact as we expected.
+It is interesting to observe that loss functions play a less important role in terms of training time spending. On the other hand, batch sizes and optimizers have much more apparent impact as we expected.
 
 </details>
 
+<<<<<<< HEAD
 <details open>
 <summary>Generate RNN Model</summary>
+=======
+<details open>  
+<summary>Generate a RNN Model</summary>
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
-Generate training time data for recurrent network.
+Generate training time data for a recurrent neural network.
 
 ```python
 put python steps here
@@ -463,7 +493,11 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
 
+<<<<<<< HEAD
 ![enter image description here](Images/DenseRegressionHistory.png)
+=======
+![Dense Regression History](Images/DenseRegressionHistory.png)
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 Plot prediction vs test.
 
@@ -475,7 +509,11 @@ plt.scatter(batch_y_pred, y_batch_test)
 plt.show()
 ```
 
+<<<<<<< HEAD
 ![enter image description here](Images/DensePredVSTest.png)
+=======
+![Dense Pred VS Test](Images/DensePredVSTest.png)
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 Now we train regression model for setup time model.
 
@@ -514,7 +552,11 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
 
+<<<<<<< HEAD
 ![enter image description here](Images/DenseSetuptimeHistory.png)
+=======
+![Dense Setup Time History](Images/DenseSetuptimeHistory.png)
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 Plot prediction vs test.
 
@@ -526,7 +568,11 @@ plt.scatter(setup_y_pred, y_setup_test)
 plt.show()
 ```
 
+<<<<<<< HEAD
 ![enter image description here](Images/DenseSetuptimePredVSTest.png)
+=======
+![Dense Setup Time Pred VS Test](Images/DenseSetuptimePredVSTest.png)
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 </details>
 
@@ -534,7 +580,7 @@ plt.show()
 <summary>Predict Dense Model Training Time Using Unit
 Counts</summary>
 
-Now we do not convert model structure into features, instead, we simply use the sum of all units of all dense layers as the model feature. It turns out works great and gives much more flexibility.
+Now, we do not convert model structure into features, instead, we simply use the sum of all units of all dense layers as the model feature. It turns out that it works great and gives much more flexibility.
 
 ```python
 from model_level_utils import convert_dense_data
@@ -544,7 +590,7 @@ cdd = convert_dense_data()
 dense_data, times_data, Scaler = cdd.convert_model_config(model_data, data_type='Units', min_max_scaler=True)
 ```
 
-Take of look of dense_data and times_data
+Take of look at dense_data and times_data.
 
 ```python
 >>>print(dense_data)
@@ -562,7 +608,7 @@ Take of look of dense_data and times_data
   4.87327576 2.39396095 18.14508438]
 ```
 
-Train a regression model with dense_data and times_data
+Train a regression model with dense_data and times_data.
 
 ```python
 from sklearn.model_selection import train_test_split
@@ -603,7 +649,11 @@ plt.legend(['train',  'test'], loc='upper left')
 plt.show()
 ```
 
+<<<<<<< HEAD
 ![enter image description here](Images/HistoryDenseUnitSum.png)
+=======
+![History Dense Unit Sum](Images/HistoryDenseUnitSum.png)
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 ```python
 batch_y_pred = batch_model.predict(x_test)
@@ -612,14 +662,18 @@ plt.scatter(batch_y_pred, y_test)
 plt.show()
 ```
 
+<<<<<<< HEAD
 ![enter image description here](Images/PredDenseUnitSum.png)
+=======
+![Pred Dense Unit Sum](Images/PredDenseUnitSum.png)
+>>>>>>> 7fe2fe4420850321dfc70590dbe155bec590790d
 
 </details>
 
 <details open>
 <summary>Predict CNN Model Training Time Using Model Level Structure</summary>
 
-Make a prediction for a convolutional network training time.
+Make a prediction for a convolutional neural network's training time.
 
 Build a regression model with generated dataframe data from **CNN Model Data Generation**.
 
@@ -714,7 +768,7 @@ x_train, y_train, batch_size=16, epochs=15, validation_data=(x_test, y_test), ve
 <details open>
 <summary>Predict RNN Model Training Time</summary>
 
-Make a prediction for a recurrent network training time.
+Make a prediction for a recurrent neural network's training time.
 
 ```python
 put python steps here
