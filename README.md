@@ -33,16 +33,30 @@ Until June 1st, 2022, the TCC's main maintainers are [Yuqi Li](https://www.linke
 
 See the [Research Docs](https://docs.google.com/document/d/1FLgQ58umOK8FmGb_iNfiACIAdGIlFEFSvfOBEQXfsyY/edit) for full progress on motivations, and related research.
 
-<details open>  
-<summary>Install</summary>  
-  
-Clone this repo and install [requirements.txt](https://github.com/aipaca-mlops/ML-training-cost-predictor/blob/master/requirements.txt) in a  [**Python>=3.7.0**](https://www.python.org/) environment, including  [**Tensorflow>=2.3**](https://www.tensorflow.org/versions), including  [**Keras>=2.8.0**](https://github.com/keras-team/keras/releases).
+
+## <div align="center">Installation</div>
+
+Clone this repo and create conda environment by `environment.yml` in a  [**Python>=3.7.0**](https://www.python.org/) environment, including  [**Tensorflow>=2.3**](https://www.tensorflow.org/versions), including  [**Keras>=2.8.0**](https://github.com/keras-team/keras/releases).
 
 ```bash
 git clone https://github.com/aipaca-mlops/ML-training-cost-predictor.git  # clone
 cd ML-training-cost-calculator # move to right directory
-pip install -r requirements.txt  # install
+conda env create -f environment.yml  # install
 ```
+
+Install `lshw` by either
+
+```bash
+sudo apt-get install lshw
+```
+
+Or
+
+```bash
+sudo yum install lshw
+```
+
+Depends on your OS. TCC hasn't started to support non-linux machines.
 
 </details>
 
@@ -92,7 +106,7 @@ gpufeature = gpu_features(
 
 ## <div align="center">Data Generation Quick Start Examples</div>
 
-<details open>  
+<details open>
 <summary>Generate a Dense Model</summary>
 
 Generate model configs for feed forward network.
@@ -185,7 +199,7 @@ df, scaler = mtd.convert_config_data(
 
 </details>
 
-<details open>  
+<details open>
 <summary>Generate a CNN Model</summary>
 
 Generate model configs for a convolutional neural network.
@@ -376,7 +390,7 @@ It is interesting to observe that loss functions play a less important role in t
 
 </details>
 
-<details open>  
+<details open>
 <summary>Generate a RNN Model</summary>
 
 Generate training time data for a recurrent neural network.
