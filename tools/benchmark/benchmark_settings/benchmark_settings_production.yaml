@@ -14,8 +14,9 @@ filter:
 
 
 model:
-  ffnn: {num_data: 1}
-  cnn2d: {num_data: 1}
+  ffnn: {num_data: 10}
+  cnn2d: {num_data: 10}
+  rnn: {num_data: 10}
   cnn_pretrained:
     # The pretrained model names are case sensitive
-    VGG16: {num_data: 1}
+    VGG16: {num_data: 10}

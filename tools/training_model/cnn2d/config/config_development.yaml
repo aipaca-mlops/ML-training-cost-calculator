@@ -1,0 +1,52 @@
+# Define the default model configuration
+
+activation_fcts:
+  - "relu"
+  - "sigmoid"
+  - "softmax"
+  - "softplus"
+  - "softsign"
+  - "tanh"
+  - "selu"
+  - "elu"
+  - "exponential"
+
+optimizers:
+  - "sgd"
+  - "rmsprop"
+  - "adam"
+  - "adadelta"
+  - "adagrad"
+  - "adamax"
+  - "nadam"
+  - "ftrl"
+
+losses:
+  - "mae"
+  - "mape"
+  - "mse"
+  - "msle"
+  - "poisson"
+  - "categorical_crossentropy"
+
+paddings:
+  - "same"
+  - "valid"
+
+
+epochs: 7
+truncate_from: 2
+trials: 5
+batch_sizes: [128, 256]
+input_shape_lower: 20
+input_shape_upper: 101
+conv_layer_num_lower: 1
+conv_layer_num_upper: 2
+filter_lower: 1
+filter_upper: 101
+dense_layer_num_lower: 1
+dense_layer_num_upper: 6
+dense_size_lower: 1
+dense_size_upper: 1001
+max_pooling_prob: 0.5
+input_channels: null

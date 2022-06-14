@@ -13,7 +13,7 @@ from tools.constant import CNN_PRETRAINED_CONFIG
 from tools.training_model.util.time_his import TimeHistoryBasic
 
 
-class GenPreTrainedCnn:
+class GenData:
     def __init__(
         self,
         batch_sizes=CNN_PRETRAINED_CONFIG["batch_sizes"],
@@ -64,7 +64,7 @@ class GenPreTrainedCnn:
         if progress:
             loop_fun = tqdm
         else:
-            loop_fun = GenPreTrainedCnn.nothing
+            loop_fun = GenData.nothing
 
         # pick random combination
         shuffle(self.batch_sizes)
@@ -79,7 +79,7 @@ class GenPreTrainedCnn:
                 for device in gpu_devices:
                     tf.config.experimental.set_memory_growth(device, True)
 
-                model = GenPreTrainedCnn.get_model(
+                model = GenData.get_model(
                     model_name, classes=output_size, input_shape=input_shape
                 )
                 model.compile(optimizer=optimizer, loss=loss, metrics=["accuracy"])

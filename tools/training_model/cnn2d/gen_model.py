@@ -12,7 +12,7 @@ from tools.training_model.cnn2d.gen_model_helpers.build_model import BuildModel
 from tools.training_model.cnn2d.gen_model_helpers.cnn_rules import CnnRules
 
 
-class GenCnn2d:
+class GenModel:
     def __init__(
         self,
         input_shape_lower=CNN2D_CONFIG["input_shape_lower"],
@@ -118,7 +118,7 @@ class GenCnn2d:
         if progress:
             loop_fun = tqdm
         else:
-            loop_fun = GenCnn2d.nothing
+            loop_fun = GenModel.nothing
         for i in loop_fun(range(num_model_data)):
             kwargs_list, layer_orders, input_shape = self.generate_cnn2d_model()
             model_configs.append([kwargs_list, layer_orders, input_shape])

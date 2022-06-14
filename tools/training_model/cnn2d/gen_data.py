@@ -11,11 +11,11 @@ from tqdm.auto import tqdm
 
 from tools.constant import CNN2D_CONFIG
 from tools.constant import TIME_COLUMNS
-from tools.training_model.cnn2d.gen_model import GenCnn2d
+from tools.training_model.cnn2d.gen_model import GenModel
 from tools.training_model.util.time_his import TimeHistoryBasic
 
 
-class Cnn2dModelTrainData:
+class GenData:
     def __init__(
         self,
         model_configs,
@@ -46,7 +46,7 @@ class Cnn2dModelTrainData:
         if progress:
             loop_fun = tqdm
         else:
-            loop_fun = GenCnn2d.nothing
+            loop_fun = GenModel.nothing
         for info_list in self.model_configs:
             model_configs.append(info_list.copy())
         for model_config_list in loop_fun(model_configs):
@@ -54,7 +54,7 @@ class Cnn2dModelTrainData:
                 kwargs_list = model_config_list[0]
                 layer_orders = model_config_list[1]
                 input_shape = model_config_list[2]
-                model = GenCnn2d.build_cnn2d_model(kwargs_list, layer_orders)
+                model = GenModel.build_cnn2d_model(kwargs_list, layer_orders)
                 batch_size = sample(self.batch_sizes, 1)[0]
                 batch_size_data_batch = []
                 batch_size_data_epoch = []

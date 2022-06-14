@@ -116,9 +116,9 @@ class GenData(ModelLevelData):
                 ] * self.truncate_from + batch_times_truncated
 
                 model_config["batch_size"] = batch_size
-                model_config["batch_time"] = np.median(batch_times_truncated)
-                model_config["epoch_time"] = np.median(epoch_times_trancuted)
-                model_config["setup_time"] = np.sum(batch_size_data_batch) - sum(
+                model_config["batch_time_ms"] = np.median(batch_times_truncated)
+                model_config["epoch_time_ms"] = np.median(epoch_times_trancuted)
+                model_config["setup_time_ms"] = np.sum(batch_size_data_batch) - sum(
                     recovered_time
                 )
                 model_config["input_dim"] = input_shape
