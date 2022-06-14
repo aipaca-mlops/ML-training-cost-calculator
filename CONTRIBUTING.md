@@ -4,7 +4,7 @@
 
 <!-- TODO: post a place where people can submit and download training data -->
 
-If you are an engineer, you can contribute to the data generation pipeline.
+If you are a developer, you can contribute to the data generation pipeline. Check [DEVELOPER.md](docs/DEVELOPER.md) for more details.
 
 If you are a researcher, you can download our training data and contribute to the TCC model.
 

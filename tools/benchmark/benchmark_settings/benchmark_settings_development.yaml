@@ -1,0 +1,22 @@
+# filter data by key. If key not exist, the filter will be ignored
+# display shows the column names
+
+# please avoid duplicate "keys" and "display"
+
+filter:
+  gpu:
+    - {key: "gpu_name", display: "gpu_type"}
+    - {key: "gpu_count", display: "num_gpus"}
+    - {key: "gpu_driver_version", display: "driver_version"}
+
+  general:
+    - {key: "cpu_product", display: "cpu_type"}
+
+
+model:
+  ffnn: {num_data: 1}
+  cnn2d: {num_data: 1}
+  rnn: {num_data: 1}
+  cnn_pretrained:
+    # The pretrained model names are case sensitive
+    VGG16: {num_data: 1}
