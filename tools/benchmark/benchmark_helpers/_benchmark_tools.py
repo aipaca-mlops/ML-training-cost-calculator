@@ -3,12 +3,14 @@ import hashlib
 import json
 import os
 import re
+import shutil
 from collections import defaultdict
 from csv import DictWriter
 from typing import List
 
 import pandas as pd
 
+from tools.util.clock import now_time_str
 from tools.util.stdout import print_ok
 from tools.util.stdout import print_warning
 
@@ -93,3 +95,12 @@ class BenchmarkTools:
             json.dump(model_configs[m_n], out_file, indent=3)
             out_file.close()
             print_ok(f"Saved model {m_n}")
+
+    def _create_data_folder(self):
+        data_folder_path = os.path.join("data", self.clock)
+        if os.path.exists(data_folder_path):
+            shutil.rmtree(data_folder_path)
+        os.mkdir(data_folder_path)
+
+    def _update_clock(self):
+        self.clock = now_time_str()

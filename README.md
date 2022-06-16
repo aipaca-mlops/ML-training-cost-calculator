@@ -62,7 +62,7 @@ Depends on your OS. TCC hasn't started to support non-linux machines.
 
 ## <div align="center">GPU Environment Check </div>
 
-<details open>
+<details>
 <summary>GPU Features</summary>
 
 Model training times are dependant on three factors: environment, model structure, and data. An environment check should be the first check before generating any data points.
@@ -106,7 +106,7 @@ gpufeature = gpu_features(
 
 ## <div align="center">Data Generation Quick Start Examples</div>
 
-<details open>
+<details>
 <summary>Generate a Dense Model</summary>
 
 Generate model configs for feed forward network.
@@ -199,7 +199,7 @@ df, scaler = mtd.convert_config_data(
 
 </details>
 
-<details open>
+<details>
 <summary>Generate a CNN Model</summary>
 
 Generate model configs for a convolutional neural network.
@@ -339,7 +339,7 @@ model_data_dfs, time_df, scaler = mtd.convert_config_data(
 
 </details>
 
-<details open>
+<details>
 <summary>Generate Classic CNN Model Data</summary>
 
 People normally use pre-defined classic CNN structures instead of creating their own. We can also generate data for these specific models instead of random generated CNN models. This will help us increase the prediction accuracy.
@@ -390,7 +390,7 @@ It is interesting to observe that loss functions play a less important role in t
 
 </details>
 
-<details open>
+<details>
 <summary>Generate a RNN Model</summary>
 
 Generate training time data for a recurrent neural network.
@@ -403,7 +403,7 @@ put python steps here
 
 ## <div align="center">Training Time Prediction Quick Start Examples</div>
 
-<details open>
+<details>
 <summary>Predict Dense Model Training Time Using Model Level Structure</summary>
 
 Make a prediction for a feed forward network training time.
@@ -544,7 +544,7 @@ plt.show()
 
 </details>
 
-<details open>
+<details>
 <summary>Predict Dense Model Training Time Using Unit
 Counts</summary>
 
@@ -630,7 +630,7 @@ plt.show()
 
 </details>
 
-<details open>
+<details>
 <summary>Predict CNN Model Training Time Using Model Level Structure</summary>
 
 Make a prediction for a convolutional neural network's training time.
@@ -686,7 +686,7 @@ history_batch = batch_model.fit(
 
 </details>
 
-<details open>
+<details >
 <summary>Predict CNN Model Training Time Using FLOPs</summary>
 
 We first get FLOPs features.
@@ -725,7 +725,7 @@ x_train, y_train, batch_size=16, epochs=15, validation_data=(x_test, y_test), ve
 
 </details>
 
-<details open>
+<details >
 <summary>Predict RNN Model Training Time</summary>
 
 Make a prediction for a recurrent neural network's training time.

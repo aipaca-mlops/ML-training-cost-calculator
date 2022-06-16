@@ -1,3 +1,5 @@
+import os
+
 from tools.benchmark.benchmark_helpers._benchmark_tools import BenchmarkTools
 from tools.constant import FILTER
 from tools.constant import MODEL
@@ -21,9 +23,9 @@ class Benchmark(BenchmarkTools):
 
     def __init__(self, filter=FILTER):
         self.clock = now_time_str()
-        hardware_data_path = f"data/h_{self.clock}.csv"
-        expt_data_path = f"data/e_{self.clock}.csv"
-        model_data_path = f"data/m_{self.clock}"
+        hardware_data_path = os.path.join("data", self.clock, f"h_{self.clock}.csv")
+        expt_data_path = os.path.join("data", self.clock, f"e_{self.clock}.csv")
+        model_data_path = os.path.join("data", self.clock, f"m_{self.clock}.csv")
         expt_csv_columns = [
             "experiment_id",
             "model_id",
@@ -51,9 +53,10 @@ class Benchmark(BenchmarkTools):
             expt_csv_columns,
         )
 
-        self.grab_hardware_features()
-
     def run(self, model: dict = MODEL):
+        self._update_clock()
+        self._create_data_folder()
+        self.grab_hardware_features()
         for m_n in model:
             if m_n not in self.grab_which_model:
                 print_warning(
