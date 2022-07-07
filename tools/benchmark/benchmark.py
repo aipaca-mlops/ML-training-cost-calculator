@@ -1,7 +1,7 @@
 import os
 
 from tools.benchmark.benchmark_helpers._benchmark_tools import BenchmarkTools
-from tools.constant import FILTER
+from tools.constant import EXPT_CSV_COLUMNS, FILTER
 from tools.constant import MODEL
 from tools.util.clock import now_time_str
 from tools.util.stdout import print_warning
@@ -25,18 +25,8 @@ class Benchmark(BenchmarkTools):
         self.clock = now_time_str()
         hardware_data_path = os.path.join("data", self.clock, f"h_{self.clock}.csv")
         expt_data_path = os.path.join("data", self.clock, f"e_{self.clock}.csv")
-        model_data_path = os.path.join("data", self.clock, f"m_{self.clock}.csv")
-        expt_csv_columns = [
-            "experiment_id",
-            "model_id",
-            "hardware_id",
-            "model_type",
-            "batch_size",
-            "input_dim",
-            "setup_time_ms",
-            "batch_time_ms",
-            "epoch_time_ms",
-        ]
+        model_data_path = os.path.join("data", self.clock, f"m_{self.clock}")
+        expt_csv_columns = EXPT_CSV_COLUMNS
         filter = filter
         self.grab_which_model = {
             "ffnn": self.grab_ffnn_features,

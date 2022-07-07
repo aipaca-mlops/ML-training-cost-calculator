@@ -50,3 +50,17 @@ with open(
 
 
 TIME_COLUMNS = ["batch_time_ms", "epoch_time_ms", "setup_time_ms"]
+
+EXPT_CSV_COLUMNS = [
+            "experiment_id",
+            "model_id",
+            "hardware_id",
+            "model_type",
+            "batch_size",
+            "input_dim",
+            "setup_time_ms",
+            "batch_time_ms",
+            "epoch_time_ms",
+        ]
+
+S3_REGION = "us-east-1"

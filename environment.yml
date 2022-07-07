@@ -12,3 +12,4 @@ dependencies:
   - scikit-learn
   - pre-commit
   - python-dotenv
+  - boto3

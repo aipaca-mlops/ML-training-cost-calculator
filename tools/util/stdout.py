@@ -9,6 +9,8 @@ class bcolors:
     BOLD = "\033[1m"
     UNDERLINE = "\033[4m"
 
+def print_err(s: str):
+    print(f"{bcolors.FAIL}ERROR: {s.capitalize()}{bcolors.ENDC}")
 
 def print_warning(s: str):
     print(f"{bcolors.WARNING}WARNING: {s.capitalize()}{bcolors.ENDC}")
