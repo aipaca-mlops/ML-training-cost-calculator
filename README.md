@@ -58,6 +58,20 @@ sudo yum install lshw
 
 Depends on your OS. TCC hasn't started to support non-linux machines.
 
+## <div align="center">Run Banchmark </div>
+
+TCC is built on ML experiment benchmark data. You can generate benchmark data by runnning the following command.
+
+```bash
+cd ML-training-cost-calculator
+conda activate tcc
+python run_benchmark.py
+```
+
+After it is done, you can find model (json), hardware (csv), and experiment data (csv) with the experiment datetime in the file name. 
+
+(Roadmap) We will build data data uploader than can easily collect all contributor-generated data into Aipaca database.
+
 </details>
 
 ## <div align="center">GPU Environment Check </div>
